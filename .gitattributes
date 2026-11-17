@@ -8,3 +8,6 @@ Dockerfile text eol=lf
 gegevens/origineel/*.db binary
 gegevens/oefeningen/*.xlsx binary
 afbeeldingen/schermafbeeldingen/*.png binary
+
+server/** text eol=lf
+controles/server_03.Dockerfile text eol=lf

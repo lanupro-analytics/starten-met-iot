@@ -27,3 +27,9 @@ documentatie/specificatie_practicum.md
 !gegevens/origineel/maakcontrole.json
 !gegevens/oefeningen/oefenhokken.xlsx
 !gegevens/oefeningen/oefenhokken.csv
+
+# Geheimen en lokale certificaatconfiguratie van serveroefeningen.
+*.controlewaarde
+*.wachtwoorden
+*.csr
+*.srl
