@@ -1,5 +1,5 @@
 {
-  "name": "Starten met IoT precisielandbouw",
+  "name": "Practicum gegevensuitwisseling bij biggen",
   "build": {
     "dockerfile": "../Dockerfile",
     "context": ".."
@@ -14,7 +14,8 @@
       ],
       "settings": {
         "jupyter.askForKernelRestart": false,
-        "python.defaultInterpreterPath": "/usr/local/bin/python"
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "files.autoSave": "off"
       }
     }
   },
