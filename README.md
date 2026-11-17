@@ -6,7 +6,7 @@ Dit practicum onderzoekt hoe gewichten en voederopname worden opgeslagen, uitgew
 
 De bestaande [introductie 00](notebooks/00_start_hier.ipynb) blijft beschikbaar.
 
-Open nu **[01 · Je eigen werkomgeving inrichten](docent/notebooks/01_werkomgeving_inrichten.ipynb)**. Dit is de volledige docentversie, met uitvoerbare code en modelantwoorden. De stappen voor het aanmaken van je eigen branch staan aan het begin; lees die eerst op GitHub.
+Open nu **[01 Â· Je eigen werkomgeving inrichten](docent/notebooks/01_werkomgeving_inrichten.ipynb)**. Dit is de volledige docentversie, met uitvoerbare code en modelantwoorden. De stappen voor het aanmaken van je eigen branch staan aan het begin; lees die eerst op GitHub.
 
 1. Gebruik als basisbranch **`main`**.
 2. Maak daarvan jouw eigen **`student/voornaam_achternaam`**-branch (kleine letters, zonder spaties, bijvoorbeeld `student/jan_janssens`).
@@ -15,7 +15,7 @@ Open nu **[01 · Je eigen werkomgeving inrichten](docent/notebooks/01_werkomgevi
 
 Voor een proefuitvoering kun je bijvoorbeeld `student/proefdocent` gebruiken. Bewaar een bestaande eigen branch om werk te hervatten.
 
-De vervolgreeks 02–08 en de afgeleide studentenversie zijn nog niet beschikbaar. De oude oefeningen staan uitsluitend in het [archief](archief/LEESMIJ.md).
+De vervolgreeks 02â€“08 en de afgeleide studentenversie zijn nog niet beschikbaar. De oude oefeningen staan uitsluitend in het [archief](archief/LEESMIJ.md).
 
 ## Bestanden
 
@@ -23,6 +23,8 @@ De vervolgreeks 02–08 en de afgeleide studentenversie zijn nog niet beschikbaa
 |---|---|
 | `notebooks/` | Ongewijzigde introductie 00 |
 | `docent/notebooks/` | Volledig uitgewerkte notebooks |
+| `gegevens/origineel/` | Vrijgegeven lesdatabanken met de eerste vier weken |
+| `gegevens/oefeningen/` | Vier fictieve oefenrijen in Excel en CSV |
 | `gegevens/werk/` | Werkbestanden in de Codespace, niet opgenomen in Git |
 | `gegevens/inlevering/` | Kleine bewust bewaarde inleverbestanden |
 | `afbeeldingen/schermafbeeldingen/` | Bedieningsvoorbeelden met bronvermelding |
@@ -30,17 +32,17 @@ De vervolgreeks 02–08 en de afgeleide studentenversie zijn nog niet beschikbaa
 | `controles/` | Technische uitvoeringscontroles |
 | `archief/` | Eerdere oefeningen en bijbehorende bestanden |
 
-Een branch is geen besloten opslagplaats. Deze repository is openbaar. Bewaar geen wachtwoorden, tokens, privésleutels of niet-vrijgegeven onderzoeksdata in Git.
+Een branch is geen besloten opslagplaats. Deze repository is openbaar. Bewaar geen wachtwoorden, tokens, privÃ©sleutels of niet-vrijgegeven onderzoeksdata in Git.
 
 ## Hervatten
 
 Bewaar aan het eind van een sessie het notebook, commit de bedoelde bestanden en push naar je eigen branch. Controleer je bestanden op GitHub. Stop daarna de Codespace via [github.com/codespaces](https://github.com/codespaces). Hervat dezelfde Codespace tijdens de volgende sessie.
 
-GitHub Codespaces en DigitalOcean hebben afzonderlijke verbruiks- en betaalinstellingen. Voor notebook 01 is nog geen DigitalOcean-server nodig.
+GitHub Codespaces en DigitalOcean hebben afzonderlijke verbruiks- en betaalinstellingen. Voor notebooks 01 en 02 is nog geen DigitalOcean-server nodig.
 
 ## Docentcontrole
 
-Zie [notebook 01 controleren](documentatie/notebook_01_controleren.md) voor de testvolgorde en de technische controles.
+Zie [notebook 01 controleren](documentatie/notebook_01_controleren.md) en [notebook 02 controleren](documentatie/notebook_02_controleren.md) voor de testvolgorde en de technische controles.
 
 ## Licentie
 
