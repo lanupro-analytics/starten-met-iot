@@ -1,0 +1,122 @@
+[
+  {
+    "origineel": "notebooks/00_start_hier.ipynb",
+    "archief": "archief/eerste_versie/notebooks/00_start_hier.ipynb",
+    "sha256": "55fce821c0ec89c591bd8a69ffe2b04b77b20a4724593879db1959042a63bdde",
+    "verplaatst": false
+  },
+  {
+    "origineel": "notebooks/01_sensor_kiezen_en_verbinden.ipynb",
+    "archief": "archief/eerste_versie/notebooks/01_sensor_kiezen_en_verbinden.ipynb",
+    "sha256": "88ece391eecd33145c5e2f6748b49b5ce0a9f4a7a41852b335077eccc4b41874",
+    "verplaatst": true
+  },
+  {
+    "origineel": "notebooks/02_mqtt_live_meekijken.ipynb",
+    "archief": "archief/eerste_versie/notebooks/02_mqtt_live_meekijken.ipynb",
+    "sha256": "50cc5ca2c28b1d82ac0209f9ac05f4a46003feec56f29755322e1ca900629b55",
+    "verplaatst": true
+  },
+  {
+    "origineel": "notebooks/03_echte_sensoren_via_http.ipynb",
+    "archief": "archief/eerste_versie/notebooks/03_echte_sensoren_via_http.ipynb",
+    "sha256": "231305a57b6de20dcb207304a3aa51dfc132b1ab8cb9655724678166561871c1",
+    "verplaatst": true
+  },
+  {
+    "origineel": "notebooks/04_wokwi_virtuele_sensor.ipynb",
+    "archief": "archief/eerste_versie/notebooks/04_wokwi_virtuele_sensor.ipynb",
+    "sha256": "8ff296b63b9a5e4ac9f120cc8229df43ce10d6cffe70194cf96084ff89154142",
+    "verplaatst": true
+  },
+  {
+    "origineel": "docent/notebooks/00_start_hier.ipynb",
+    "archief": "archief/eerste_versie/docent/notebooks/00_start_hier.ipynb",
+    "sha256": "a8bbc12122588cc511ab4cc7345b4e6b9c2c659bdebd6eb894addc20dfa54b58",
+    "verplaatst": false
+  },
+  {
+    "origineel": "docent/notebooks/01_sensor_kiezen_en_verbinden.ipynb",
+    "archief": "archief/eerste_versie/docent/notebooks/01_sensor_kiezen_en_verbinden.ipynb",
+    "sha256": "7753abb5f67c46fc470e481f70af49c72ac634287168d91f601c798f4a1df7d2",
+    "verplaatst": true
+  },
+  {
+    "origineel": "docent/notebooks/02_mqtt_live_meekijken.ipynb",
+    "archief": "archief/eerste_versie/docent/notebooks/02_mqtt_live_meekijken.ipynb",
+    "sha256": "118baafc84dfa705a952f26ff225230be35b3ff7912a2fc8d0037b99a66c6a56",
+    "verplaatst": true
+  },
+  {
+    "origineel": "docent/notebooks/03_echte_sensoren_via_http.ipynb",
+    "archief": "archief/eerste_versie/docent/notebooks/03_echte_sensoren_via_http.ipynb",
+    "sha256": "e1feac3a2b602d83cf4e6484e6feb6a65f9710f3c979f5b23b5de1e894585f27",
+    "verplaatst": true
+  },
+  {
+    "origineel": "docent/notebooks/04_wokwi_virtuele_sensor.ipynb",
+    "archief": "archief/eerste_versie/docent/notebooks/04_wokwi_virtuele_sensor.ipynb",
+    "sha256": "10b3bdc83d689a3b2b66da3a3edb9de185ad735bdb87e42f6108fc1555fe10aa",
+    "verplaatst": true
+  },
+  {
+    "origineel": "README.md",
+    "archief": "archief/eerste_versie/README.md",
+    "sha256": "c6b7e0ddaeb0091a64726ee5bcd23b8c1d866ba4139f4e283abbe253ee87d8d3",
+    "verplaatst": false
+  },
+  {
+    "origineel": "Dockerfile",
+    "archief": "archief/eerste_versie/Dockerfile",
+    "sha256": "d2aa1c099754498314bafaeb3a4e87d39cfaffadf754c7bf55292acc8392ec9b",
+    "verplaatst": false
+  },
+  {
+    "origineel": "docker-compose.yml",
+    "archief": "archief/eerste_versie/docker-compose.yml",
+    "sha256": "cb0523784e153e119bc14d69ff1a7d19b8c80f6f4ddd3c2cd11e3bce4832a523",
+    "verplaatst": false
+  },
+  {
+    "origineel": "requirements.txt",
+    "archief": "archief/eerste_versie/requirements.txt",
+    "sha256": "c399406fa170835a420f61cc5bdf8bfaf8e59c17b509bd4d63640248f18843cf",
+    "verplaatst": false
+  },
+  {
+    "origineel": ".gitignore",
+    "archief": "archief/eerste_versie/.gitignore",
+    "sha256": "fe8d1854688c250fc6d533cb63c5739a116eaa646914d83474aceba747ceff3c",
+    "verplaatst": false
+  },
+  {
+    "origineel": ".devcontainer/devcontainer.json",
+    "archief": "archief/eerste_versie/.devcontainer/devcontainer.json",
+    "sha256": "d888774236fc081c7191c1e6ea1df6928d3f0867daa12180f9ac6c3eab7b3bbe",
+    "verplaatst": false
+  },
+  {
+    "origineel": "data/2026-10-18_sht30_sensor_82001.csv",
+    "archief": "archief/eerste_versie/data/2026-10-18_sht30_sensor_82001.csv",
+    "sha256": "bcb8dbb5a24da524a8a74c9528d7ff452699ca55d2a201f5b697a82f1c06fabf",
+    "verplaatst": true
+  },
+  {
+    "origineel": "data/sensor_community_gent_30km_2026-10-19.json",
+    "archief": "archief/eerste_versie/data/sensor_community_gent_30km_2026-10-19.json",
+    "sha256": "a468f7d5fe1eaaebca261379b6cd4d2faf0823d94adcd6cb695e54f5fe3e19d6",
+    "verplaatst": true
+  },
+  {
+    "origineel": "wokwi/diagram.json",
+    "archief": "archief/eerste_versie/wokwi/diagram.json",
+    "sha256": "f92fe2aca43c7b43e3d832c0315bed8cc7d66c793e693fea1a21ec4a51c6edfd",
+    "verplaatst": true
+  },
+  {
+    "origineel": "wokwi/main.py",
+    "archief": "archief/eerste_versie/wokwi/main.py",
+    "sha256": "4a2ee5b3df9227dcfb9ca9f27abbb989ea7e5e701ec0ca7149dfc1bfb769ed97",
+    "verplaatst": true
+  }
+]
