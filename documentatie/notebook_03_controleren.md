@@ -6,14 +6,14 @@ Open `docent/notebooks/03_eigen_server_inrichten.ipynb`. De volledige versie sta
 
 Iedere deelnemer maakt één eigen Droplet binnen team **lanupro-tech**, project **starten-met-iot**. GitHub is een mogelijke aanmeldmethode voor DigitalOcean, maar vervangt de teamuitnodiging niet. De server van de docent is uitsluitend een eventuele oefenomgeving voor verificatie en wordt niet in het notebook als studentserver ingesteld.
 
-De notebook heeft 63 cellen, zes vragen met afzonderlijke invul- en oplossingscellen en 24 terminalblokken. De tijdelijke branch-omzeiling volgt het patroon van notebooks 01 en 02 en heeft de tag `oplossing`. Voor een proef op een eigen deelnemersbranch doorloop je eerst notebook 01 op die branch. Gebruik je de tijdelijke omzeiling op een ontwikkelbranch, dan moeten de opgeslagen instellingen overeenkomen met `student/proefdocent`.
+De notebook heeft 63 cellen, zes vragen met afzonderlijke invul- en oplossingscellen en 25 terminalblokken. De tijdelijke branch-omzeiling volgt het patroon van notebooks 01 en 02 en heeft de tag `oplossing`. Voor een proef op een eigen deelnemersbranch doorloop je eerst notebook 01 op die branch. Gebruik je de tijdelijke omzeiling op een ontwikkelbranch, dan moeten de opgeslagen instellingen overeenkomen met `student/proefdocent`.
 
 ## Technische keuzes
 
 - Debian 13 met Mosquitto 2.0 uit de Debian-pakketbron.
 - Wachtwoordaanmelding via SSH; afzonderlijke gebruiker `beheer` met sudo. Directe root-aanmelding via SSH wordt pas uitgeschakeld nadat de tweede gebruikersaanmelding is getest.
 - Geen domeinnaam nodig: per server een eigen CA en een certificaat met het publieke IPv4-adres. De CA wordt via een gecontroleerde SSH-verbinding naar de clients overgebracht. Certificaat- en adrescontrole blijven ingeschakeld.
-- Mosquitto op 8883 met afzonderlijke eigenaar- en lezersaccounts en topicrechten.
+- Mosquitto op 8883 met afzonderlijke eigenaar- en lezersaccounts en topicrechten. Automatisch starten bij het opstarten is uitgeschakeld; de deelnemer start de broker handmatig met `sudo systemctl start mosquitto`. Nginx en de statusdienst blijven automatisch starten.
 - Nginx op 443; een kleine FastAPI-statusdienst op uitsluitend `127.0.0.1:8000`, onder servicegebruiker `iot`.
 - De statusdienst controleert een afzonderlijk API-wachtwoord met een gezouten scrypt-controlewaarde. Het controlepad is `/gezondheid`; het is nog geen meetgegevens-API.
 - UFW laat TCP 22, 8883 en 443 toe. Een eventuele Cloud Firewall moet daarmee overeenkomen. De leshandleiding wijzigt geen gedeelde teamfirewall.
@@ -51,7 +51,7 @@ Doorloop vóór vrijgave aan studenten:
 3. Voer de installatieblokken in de opgegeven volgorde uit. Controleer de eerste hostvingerafdruk, verborgen wachtwoordinvoer en tweede SSH-aanmelding vóór het wijzigen van root-toegang.
 4. Test de verbinding vanuit een echte Codespace op het campusnetwerk. Controleer ook de verborgen invoervelden in de Codespaces-notebookinterface.
 5. Controleer UFW, eventuele Cloud Firewall en de werkelijke externe poorten. Alleen syntaxiscontrole bewijst niet dat firewallregels juist werken.
-6. Test een echte `systemctl`-serviceherstart en een volledige Dropletherstart. De lokale proef herstartte het brokerproces; de Dockercontainer draaide niet als volledige systemd-VM.
+6. Test een echte `systemctl`-serviceherstart en een volledige Dropletherstart. Mosquitto moet na de Dropletherstart `inactive` en `disabled` zijn en pas na de handmatige start weer bereikbaar worden. De lokale proef herstartte het brokerproces; de Dockercontainer draaide niet als volledige systemd-VM.
 7. Controleer de kosten- en afsluitroute, het hervatten van dezelfde Codespace en de bewaarde controlebestanden.
 
 Pas de aangewezen servergrootte pas definitief toe nadat ook de latere complete gegevensketen is belast. De lokale proef is aanvullend geslaagd met één CPU, 512 MiB geheugen en zonder extra swap (`--memory=512m --memory-swap=512m`). Het lesformulier kiest nu het goedkoopste gepubliceerde Basic/Regular-plan: 512 MiB, 1 vCPU, 10 GiB SSD, $4 per maand op 17 november 2026. Dit bewijst nog niet dat de gehele latere lesketen op een echte 512-MiB-Droplet past. Controleer ook de installatiebelasting en alle achtergrondprocessen van de echte VM vóór de les.
