@@ -1,6 +1,10 @@
-# Behoud notebook 00 en de archiefkopieën zonder automatische regelconversie.
+# Behoud notebook 00 en de archiefkopieÃ«n zonder automatische regelconversie.
 notebooks/00_start_hier.ipynb -text
 docent/notebooks/00_start_hier.ipynb -text
 archief/eerste_versie/** -text
 *.sh text eol=lf
 Dockerfile text eol=lf
+
+gegevens/origineel/*.db binary
+gegevens/oefeningen/*.xlsx binary
+afbeeldingen/schermafbeeldingen/*.png binary

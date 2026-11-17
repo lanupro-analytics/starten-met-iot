@@ -11,8 +11,8 @@ id_ed25519
 id_rsa
 gegevens/werk/*
 !gegevens/werk/LEESMIJ.md
-gegevens/origineel/
-gegevens/oefeningen/
+gegevens/origineel/*
+gegevens/oefeningen/*
 *.db
 *.db-shm
 *.db-wal
@@ -20,3 +20,10 @@ gegevens/oefeningen/
 *.sqlite3
 documentatie/bronverkenning_gegevens.md
 documentatie/specificatie_practicum.md
+
+# Vrijgegeven lesbestanden; werkdatabanken blijven uitgesloten.
+!gegevens/origineel/asserva.db
+!gegevens/origineel/schauer.db
+!gegevens/origineel/maakcontrole.json
+!gegevens/oefeningen/oefenhokken.xlsx
+!gegevens/oefeningen/oefenhokken.csv
