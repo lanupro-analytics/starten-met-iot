@@ -2,8 +2,8 @@
 
 ## Uitvoering als deelnemer
 
-1. Open de branch `codex/practicum-01-werkomgeving` op GitHub.
-2. Lees notebook 01 en maak daarvan een eigen branch, bijvoorbeeld `student/proefdocent`.
+1. Open de branch `main` op GitHub.
+2. Lees notebook 01 en maak daarvan een eigen branch: `student/voornaam_achternaam` (of bijvoorbeeld `student/proefdocent` voor een proefuitvoering).
 3. Start een Codespace op die branch en open `docent/notebooks/01_werkomgeving_inrichten.ipynb`.
 4. Doorloop de instructies. De code en modelantwoorden zijn al ingevuld. De rol `gewichten` is geschikt voor deze proef.
 5. Controleer de echte handelingen: branch maken, Codespace starten, tekstbestand aanpassen, selectief committen, pushen, controleren op GitHub en hervatten.

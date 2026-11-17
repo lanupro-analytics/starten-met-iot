@@ -43,6 +43,13 @@ class Werkplekcontrole(unittest.TestCase):
         self.assertEqual(result["branch"], "student/proefdocent")
         self.assertEqual(result["rol"], "gewichten")
 
+    def test_voornaam_achternaam_met_underscore_wordt_geaccepteerd(self):
+        subprocess.run(["git", "symbolic-ref", "HEAD", "refs/heads/student/jan_janssens"], cwd=self.root, check=True)
+        self.run_cells(self.root / "docent/notebooks")
+        result = json.loads((self.root / "gegevens/inlevering/01_werkplekcontrole.json").read_text())
+        self.assertEqual(result["deelnemerscode"], "jan_janssens")
+        self.assertEqual(result["branch"], "student/jan_janssens")
+
     def test_herhaalde_uitvoering_behoudt_bestaande_notitie(self):
         self.run_cells()
         note = self.root / "gegevens/werk/werknotitie.txt"

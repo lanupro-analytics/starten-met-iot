@@ -8,8 +8,8 @@ De bestaande [introductie 00](notebooks/00_start_hier.ipynb) blijft beschikbaar.
 
 Open nu **[01 · Je eigen werkomgeving inrichten](docent/notebooks/01_werkomgeving_inrichten.ipynb)**. Dit is de volledige docentversie, met uitvoerbare code en modelantwoorden. De stappen voor het aanmaken van je eigen branch staan aan het begin; lees die eerst op GitHub.
 
-1. Gebruik als basisbranch **`codex/practicum-01-werkomgeving`**.
-2. Maak daarvan jouw eigen **`student/jouw-deelnemerscode`**-branch.
+1. Gebruik als basisbranch **`main`**.
+2. Maak daarvan jouw eigen **`student/voornaam_achternaam`**-branch (kleine letters, zonder spaties, bijvoorbeeld `student/jan_janssens`).
 3. Start een Codespace op die eigen branch.
 4. Open `docent/notebooks/01_werkomgeving_inrichten.ipynb` en volg de cellen in volgorde.
 
