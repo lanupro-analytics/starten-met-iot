@@ -6,7 +6,7 @@ Open `docent/notebooks/03_eigen_server_inrichten.ipynb`. De volledige versie sta
 
 Iedere deelnemer maakt één eigen Droplet binnen team **lanupro-tech**, project **starten-met-iot**. GitHub is een mogelijke aanmeldmethode voor DigitalOcean, maar vervangt de teamuitnodiging niet. De server van de docent is uitsluitend een eventuele oefenomgeving voor verificatie en wordt niet in het notebook als studentserver ingesteld.
 
-De notebook heeft 55 cellen, zes vragen met afzonderlijke invul- en oplossingscellen en 24 terminalblokken. De tijdelijke branch-omzeiling volgt het patroon van notebooks 01 en 02 en heeft de tag `oplossing`. Voor een proef op een eigen deelnemersbranch doorloop je eerst notebook 01 op die branch. Gebruik je de tijdelijke omzeiling op een ontwikkelbranch, dan moeten de opgeslagen instellingen overeenkomen met `student/proefdocent`.
+De notebook heeft 63 cellen, zes vragen met afzonderlijke invul- en oplossingscellen en 24 terminalblokken. De tijdelijke branch-omzeiling volgt het patroon van notebooks 01 en 02 en heeft de tag `oplossing`. Voor een proef op een eigen deelnemersbranch doorloop je eerst notebook 01 op die branch. Gebruik je de tijdelijke omzeiling op een ontwikkelbranch, dan moeten de opgeslagen instellingen overeenkomen met `student/proefdocent`.
 
 ## Technische keuzes
 
@@ -54,7 +54,7 @@ Doorloop vóór vrijgave aan studenten:
 6. Test een echte `systemctl`-serviceherstart en een volledige Dropletherstart. De lokale proef herstartte het brokerproces; de Dockercontainer draaide niet als volledige systemd-VM.
 7. Controleer de kosten- en afsluitroute, het hervatten van dezelfde Codespace en de bewaarde controlebestanden.
 
-Pas de aangewezen servergrootte pas definitief toe nadat ook de latere complete gegevensketen is belast. De huidige proef rechtvaardigt geen claim dat 1 GiB voldoende is voor alle volgende opdrachten.
+Pas de aangewezen servergrootte pas definitief toe nadat ook de latere complete gegevensketen is belast. De lokale proef is aanvullend geslaagd met één CPU, 512 MiB geheugen en zonder extra swap (`--memory=512m --memory-swap=512m`). Het lesformulier kiest nu het goedkoopste gepubliceerde Basic/Regular-plan: 512 MiB, 1 vCPU, 10 GiB SSD, $4 per maand op 17 november 2026. Dit bewijst nog niet dat de gehele latere lesketen op een echte 512-MiB-Droplet past. Controleer ook de installatiebelasting en alle achtergrondprocessen van de echte VM vóór de les.
 
 ## Controles herhalen
 
@@ -73,3 +73,7 @@ Dit zijn Bash-opdrachten voor een ontwikkelomgeving met Docker; Docker is geen v
 Het oefencertificaat is 90 dagen geldig. Plan bij langer gebruik een gecontroleerde vernieuwing. Als de CA wordt vervangen, moeten alle betrokken clients het nieuwe openbare CA-certificaat via een vertrouwde route krijgen. Bewaar en vervang privésleutels niet via Git.
 
 Een vergeten API-wachtwoord vereist een nieuwe controlewaarde onder begeleiding; de installatie overschrijft de bestaande waarde niet. Mosquitto-wachtwoorden kunnen met `mosquitto_passwd` per account worden gewijzigd. Houd altijd een werkende beheersessie of herstelconsole beschikbaar bij toegangsaanpassingen.
+
+## Uitgebreide aanmaakroute
+
+Sectie 4 bevat acht afzonderlijke stappen met uitleg per keuze en zes extra officiële schermafbeeldingen. Studenten kiezen Password, zetten alle optionele extra diensten uit, laten Startup scripts uitgeschakeld en voegen hun voornaam toe als tag. De prijs wordt gecontroleerd tegen de [officiële prijslijst](https://www.digitalocean.com/pricing/droplets); een screenshot met een Premium-plan is alleen een bedieningsvoorbeeld. De codecellen zijn bij deze uitbreiding inhoudelijk ongewijzigd.
