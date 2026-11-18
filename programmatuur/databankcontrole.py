@@ -6,10 +6,7 @@ import json
 import sqlite3
 
 ROLLEN = {'gewichten': ('asserva.db', 'VBW', 80028), 'voederopname': ('schauer.db', 'VFI', 146649)}
-OEFENRIJEN = [('1', 'Oefenafdeling A', 1, 'Start aan de deur'),
-             ('2', 'Oefenafdeling A', 2, 'Controleer het label'),
-             ('3', 'Oefenafdeling B', 3, 'Noteer de observatie'),
-             ('4', 'Oefenafdeling B', 4, 'Rond de controle af')]
+
 
 
 def openen(pad):
@@ -65,17 +62,19 @@ def controleer_aanvulling(origineel, kandidaat, rol):
     nieuw = inspecteer(kandidaat, rol)
     for key in ('schema', 'metingen_sha256', 'metadata_sha256'):
         if basis[key] != nieuw[key]:
-            raise ValueError('De oorspronkelijke meetgegevens of metadata zijn gewijzigd. Bewerk alleen de oefentabel.')
+            raise ValueError('De oorspronkelijke meetgegevens of metadata zijn gewijzigd. Bewerk alleen de tabel hokken.')
     with closing(openen(kandidaat)) as db:
-        schema = db.execute('PRAGMA table_info(oefen_hokken)').fetchall()
-        if [(r[1], r[2].upper()) for r in schema] != [('hok','TEXT'), ('afdeling','TEXT'), ('controlevolgorde','INTEGER'), ('notitie','TEXT')]:
-            raise ValueError('Maak oefen_hokken met de vier voorgeschreven kolommen en gegevenstypen.')
+        schema = db.execute('PRAGMA table_info(hokken)').fetchall()
+        if [(r[1], r[2].upper()) for r in schema] != [('hok','TEXT'), ('gebouw','TEXT'), ('afdeling','INTEGER'), ('oppervlakte_m2','REAL')]:
+            raise ValueError('Maak hokken met de vier voorgeschreven kolommen en gegevenstypen.')
         if schema[0][5] != 1 or schema[0][3] != 1:
-            raise ValueError('Vink PK en NN aan bij hok in oefen_hokken.')
-        rows = db.execute('SELECT hok, afdeling, controlevolgorde, notitie FROM oefen_hokken ORDER BY hok').fetchall()
-        if rows != OEFENRIJEN:
-            raise ValueError('De vier oefenrijen wijken af. Vergelijk ze met oefenhokken.xlsx en sla wijzigingen op.')
-    return {k:v for k,v in nieuw.items() if k not in ('schema','metadata','metadata_sha256')} | {'aantal_oefenrijen':len(rows)}
+            raise ValueError('Vink PK en NN aan bij hok in hokken.')
+        rows = db.execute('SELECT hok, gebouw, afdeling, oppervlakte_m2 FROM hokken ORDER BY hok').fetchall()
+        verwacht = [(r[0], 'M5', 1, 8.0) for r in db.execute('SELECT DISTINCT PEN FROM metingen ORDER BY PEN')]
+        if rows != verwacht:
+            raise ValueError('De hokmetadata wijken af. Neem elk hoknummer uit metingen precies eenmaal op, met gebouw M5, afdeling 1 en oppervlakte 8 m². Sla wijzigingen op.')
+    return {k:v for k,v in nieuw.items() if k not in ('schema','metadata','metadata_sha256')} | {'aantal_hokken':len(rows)}
+
 
 
 def bewaar_werkbestand(origineel, kandidaat, doel, rol):

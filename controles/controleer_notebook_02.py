@@ -15,15 +15,15 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'programmatuur'))
-from databankcontrole import ROLLEN, OEFENRIJEN, inspecteer, controleer_aanvulling, bewaar_werkbestand
+from databankcontrole import ROLLEN, inspecteer, controleer_aanvulling, bewaar_werkbestand
 
-DDL = 'CREATE TABLE oefen_hokken(hok TEXT NOT NULL PRIMARY KEY, afdeling TEXT, controlevolgorde INTEGER, notitie TEXT)'
+DDL = 'CREATE TABLE hokken(hok TEXT NOT NULL PRIMARY KEY, gebouw TEXT, afdeling INTEGER, oppervlakte_m2 REAL)'
 
 
 def aanvullen(pad):
     with closing(sqlite3.connect(pad)) as db, db:
         db.execute(DDL)
-        db.executemany('INSERT INTO oefen_hokken VALUES(?,?,?,?)', OEFENRIJEN)
+        db.executemany('INSERT INTO hokken VALUES(?,?,?,?)', [(str(i), 'M5', 1, 8.0) for i in range(1,11)])
 
 
 class Databankcontrole(unittest.TestCase):
@@ -53,12 +53,12 @@ class Databankcontrole(unittest.TestCase):
             inspecteer(self.upload, 'voederopname')
 
     def test_onvolledige_oefening(self):
-        with self.assertRaisesRegex(ValueError, 'oefen_hokken'):
+        with self.assertRaisesRegex(ValueError, 'hokken'):
             controleer_aanvulling(self.bron, self.upload, 'gewichten')
         aanvullen(self.upload)
         with closing(sqlite3.connect(self.upload)) as db, db:
-            db.execute("UPDATE oefen_hokken SET afdeling='typfout' WHERE hok='1'")
-        with self.assertRaisesRegex(ValueError, 'vier oefenrijen'):
+            db.execute("UPDATE hokken SET afdeling='typfout' WHERE hok='1'")
+        with self.assertRaisesRegex(ValueError, 'hokmetadata'):
             controleer_aanvulling(self.bron, self.upload, 'gewichten')
 
     def test_veranderde_meetwaarde_herkend_zonder_veranderd_aantal(self):
@@ -82,10 +82,22 @@ class Databankcontrole(unittest.TestCase):
             bewaar_werkbestand(self.bron, self.upload, doel, 'gewichten')
         self.assertEqual(hashlib.sha256(doel.read_bytes()).hexdigest(), hash2)
 
-    def test_csv_gelijk_aan_handmatige_invoer(self):
-        with (ROOT / 'gegevens/oefeningen/oefenhokken.csv').open(encoding='utf-8', newline='') as f:
-            rows = [(r['hok'],r['afdeling'],int(r['controlevolgorde']),r['notitie']) for r in csv.DictReader(f)]
-        self.assertEqual(rows, OEFENRIJEN)
+    def test_hoknummers_in_beide_bronnen(self):
+        for naam, *_ in ROLLEN.values():
+            with closing(sqlite3.connect(ROOT / 'gegevens/origineel' / naam)) as db:
+                self.assertEqual({r[0] for r in db.execute('SELECT DISTINCT PEN FROM metingen')}, {str(i) for i in range(1,11)})
+
+    def test_ontbrekend_extra_hok_en_verkeerde_oppervlakte(self):
+        aanvullen(self.upload)
+        for query in ["DELETE FROM hokken WHERE hok='10'", "UPDATE hokken SET hok='11' WHERE hok='10'", "UPDATE hokken SET oppervlakte_m2=80 WHERE hok='1'", "UPDATE hokken SET gebouw='M6' WHERE hok='1'"]:
+            with self.subTest(query=query):
+                with closing(sqlite3.connect(self.upload)) as db, db:
+                    db.execute(query)
+                with self.assertRaisesRegex(ValueError, 'hokmetadata'):
+                    controleer_aanvulling(self.bron, self.upload, 'gewichten')
+                with closing(sqlite3.connect(self.upload)) as db, db:
+                    db.execute('DROP TABLE hokken')
+                aanvullen(self.upload)
 
     def test_notebook_beide_rollen_en_hervatten(self):
         notebook = json.loads((ROOT / 'docent/notebooks/02_databanken_verkennen_en_aanvullen.ipynb').read_text(encoding='utf-8'))
@@ -115,7 +127,7 @@ class Databankcontrole(unittest.TestCase):
                                 if cell['cell_type']=='code':
                                     exec(compile(''.join(cell['source']),cell['id'],'exec'),namespace)
                     result = json.loads((werk / 'gegevens/inlevering/02_databankcontrole.json').read_text())
-                    self.assertEqual(result['aantal_oefenrijen'],4)
+                    self.assertEqual(result['aantal_hokken'],10)
                     self.assertEqual(result['rol'],rol)
                 finally:
                     os.chdir(old)

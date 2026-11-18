@@ -16,14 +16,16 @@ Begin met **[01 · Je eigen werkomgeving inrichten](docent/notebooks/01_werkomge
 
 Voor een proefuitvoering kun je `student/proefdocent` gebruiken. Bewaar een bestaande eigen branch om werk te hervatten. Zolang notebook 03 op de ontwikkelbranch staat, volg je de [controlehandleiding voor 03](documentatie/notebook_03_controleren.md) voor het kiezen van de proefbranch. De lokale technische controle is uitgevoerd; de DigitalOcean- en Codespaces-praktijktest staat nog open.
 
-Notebooks 04–08 en de afgeleide studentenversies zijn nog niet beschikbaar. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
+Ga daarna verder met **[04 · Metingen publiceren met MQTT](docent/notebooks/04_metingen_publiceren_met_mqtt.ipynb)**. Je maakt een JSON-bericht, volgt de ontvangst en publiceert een kleine selectie uit je eigen werkdatabase.
+
+Notebooks 05–08 en de afgeleide studentenversies zijn nog niet beschikbaar. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
 
 ## Bestanden
 
 | Map | Inhoud |
 |---|---|
 | `notebooks/` | Ongewijzigde introductie 00 |
-| `docent/notebooks/` | Volledig uitgewerkte notebooks 01–03 |
+| `docent/notebooks/` | Volledig uitgewerkte notebooks 01–04 |
 | `gegevens/origineel/` | Vrijgegeven lesdatabanken met de eerste vier weken |
 | `gegevens/oefeningen/` | Vier fictieve oefenrijen in Excel en CSV |
 | `gegevens/werk/` | Werkbestanden in de Codespace, niet opgenomen in Git |
@@ -45,7 +47,7 @@ GitHub Codespaces en DigitalOcean hebben afzonderlijke facturering. Voor noteboo
 
 ## Docentcontrole
 
-Zie [notebook 01 controleren](documentatie/notebook_01_controleren.md), [notebook 02 controleren](documentatie/notebook_02_controleren.md) en [notebook 03 controleren](documentatie/notebook_03_controleren.md) voor de testvolgorde, uitgevoerde controles en beperkingen.
+Zie [notebook 01 controleren](documentatie/notebook_01_controleren.md), [notebook 02 controleren](documentatie/notebook_02_controleren.md) , [notebook 03 controleren](documentatie/notebook_03_controleren.md) en [notebook 04 controleren](documentatie/notebook_04_controleren.md) voor de testvolgorde, uitgevoerde controles en beperkingen.
 
 ## Licentie
 

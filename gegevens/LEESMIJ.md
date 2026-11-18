@@ -4,7 +4,7 @@
 
 In het [gegevenswoordenboek](gegevenswoordenboek.md) staan de velden, eenheden en beperkingen. Lichaamsgewicht is uitgedrukt in kg; voederopname per bezoek in gram. De meettijden zijn vermoedelijk Belgische lokale tijden en zijn niet naar UTC omgerekend. De bronselectie bevat geen aanvullende kwaliteitsfiltering. De resterende vijftien kalenderdagen zijn gereserveerd voor een latere oefening en zijn hier nog niet toegevoegd.
 
-`oefeningen/oefenhokken.xlsx` en `.csv` bevatten dezelfde vier fictieve contextregels voor notebook 02. Ze zijn geen meetgegevens of beschrijving van de echte proefhuisvesting.
+Notebook 02 gebruikt de tien hoknummers uit `metingen.PEN`. Studenten maken zelf `hokken`, met per hok gebouw M5, afdeling 1 en oppervlakte 8 m². De bestanden `oefeningen/oefenhokken.xlsx` en `.csv` zijn verouderd oefenmateriaal en worden niet meer gebruikt.
 
 `werk/` bevat werkbestanden van de Codespace. Git slaat de inhoud over. Bewaar de lokale kopie van je databank; verwijdering van de Codespace verwijdert ook bestanden die niet elders zijn bewaard. Upload in notebook 02 naar `werk/invoer/`; na controle wordt de werkdatabank in `werk/` bewaard. Een afwijkend bestaand werkbestand wordt niet overschreven.
 

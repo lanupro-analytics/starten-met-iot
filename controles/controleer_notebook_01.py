@@ -23,7 +23,7 @@ class Werkplekcontrole(unittest.TestCase):
         (self.root / "docent/notebooks").mkdir(parents=True)
         (self.root / "README.md").write_text("Werkplek", encoding="utf-8")
 
-    def run_cells(self, folder=None):
+    def run_cells(self, folder=None, include_oplossing=True):
         previous = Path.cwd()
         os.chdir(folder or self.root)
         namespace = {}
@@ -31,6 +31,8 @@ class Werkplekcontrole(unittest.TestCase):
             with contextlib.redirect_stdout(io.StringIO()):
                 for cell in self.nb["cells"]:
                     if cell["cell_type"] == "code":
+                        if not include_oplossing and "oplossing" in cell.get("metadata", {}).get("tags", []):
+                            continue
                         exec(compile("".join(cell["source"]), cell["id"], "exec"), namespace)
         finally:
             os.chdir(previous)
@@ -60,14 +62,20 @@ class Werkplekcontrole(unittest.TestCase):
     def test_main_wordt_geblokkeerd_voor_bestandsschrijven(self):
         subprocess.run(["git", "symbolic-ref", "HEAD", "refs/heads/main"], cwd=self.root, check=True)
         with self.assertRaisesRegex(RuntimeError, "student/"):
-            self.run_cells()
+            self.run_cells(include_oplossing=False)
         self.assertFalse((self.root / "gegevens").exists())
 
     def test_andere_branch_wordt_ook_geblokkeerd(self):
         subprocess.run(["git", "symbolic-ref", "HEAD", "refs/heads/codex/controle"], cwd=self.root, check=True)
         with self.assertRaisesRegex(RuntimeError, "student/"):
-            self.run_cells()
+            self.run_cells(include_oplossing=False)
         self.assertFalse((self.root / "gegevens").exists())
+
+    def test_docent_omzeiling_werkt_op_main(self):
+        subprocess.run(["git", "symbolic-ref", "HEAD", "refs/heads/main"], cwd=self.root, check=True)
+        self.run_cells(include_oplossing=True)
+        result = json.loads((self.root / "gegevens/inlevering/01_werkplekcontrole.json").read_text())
+        self.assertEqual(result["branch"], "student/proefdocent")
 
     def test_ongeldige_rol_wordt_afgevangen(self):
         cell = next(c for c in self.nb["cells"] if c["id"] == "rol-instellen")

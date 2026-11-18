@@ -61,7 +61,7 @@ Kwaliteitsvlaggen zijn geen automatische opdracht om een rij te verwijderen. De 
 
 ## Oefengegevens
 
-`oefenhokken.xlsx` en `oefenhokken.csv` bevatten dezelfde vier **fictieve contextrecords**. De tabel `oefen_hokken` heeft de kolommen `hok` (TEXT PRIMARY KEY NOT NULL), `afdeling` (TEXT), `controlevolgorde` (INTEGER) en `notitie` (TEXT). De namen en notities beschrijven geen werkelijke proefinrichting. De optionele vergelijkingstabel `oefen_hokken_csv` is geen tweede bron van meetgegevens.
+De tabel `hokken` wordt door studenten toegevoegd. Ze bevat `hok` (TEXT PRIMARY KEY NOT NULL), `gebouw` (TEXT), `afdeling` (INTEGER) en `oppervlakte_m2` (REAL). Beide startdatabanken bevatten hoknummers 1 tot en met 10 in `metingen.PEN`. De opdrachtgegevens zijn voor elk hok gebouw M5, afdeling 1 en oppervlakte 8 m². De vergelijkingstabel `hokken_csv` dient alleen om CSV-overdracht te oefenen. De oude bestanden `oefenhokken.xlsx` en `oefenhokken.csv` worden niet meer gebruikt.
 
 ## Herkomstcontrole
 
