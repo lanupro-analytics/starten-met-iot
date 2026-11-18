@@ -18,19 +18,21 @@ Voor een proefuitvoering kun je `student/proefdocent` gebruiken. Bewaar een best
 
 Ga daarna verder met **[04 · Metingen publiceren met MQTT](docent/notebooks/04_metingen_publiceren_met_mqtt.ipynb)**. Je maakt een JSON-bericht, volgt de ontvangst en publiceert een kleine selectie uit je eigen werkdatabase.
 
-Notebooks 05–08 en de afgeleide studentenversies zijn nog niet beschikbaar. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
+Vervolg met **[05 · Metingen ontvangen en opslaan](docent/notebooks/05_metingen_ontvangen_en_opslaan.ipynb)**. Je richt de ontvanger op je eigen server in, voegt de partnerstroom toe en controleert de volledige beginsets.
+
+Notebooks 06–08 en de afgeleide studentenversies zijn nog niet beschikbaar. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
 
 ## Bestanden
 
 | Map | Inhoud |
 |---|---|
 | `notebooks/` | Ongewijzigde introductie 00 |
-| `docent/notebooks/` | Volledig uitgewerkte notebooks 01–04 |
+| `docent/notebooks/` | Volledig uitgewerkte notebooks 01–05 |
 | `gegevens/origineel/` | Vrijgegeven lesdatabanken met de eerste vier weken |
 | `gegevens/oefeningen/` | Vier fictieve oefenrijen in Excel en CSV |
 | `gegevens/werk/` | Werkbestanden in de Codespace, niet opgenomen in Git |
 | `gegevens/inlevering/` | Kleine, bewust bewaarde inleverbestanden |
-| `server/` | Programma's, pakketversies en configuraties voor notebook 03 |
+| `server/` | Programma's, pakketversies en configuraties voor notebooks 03 en 05 |
 | `programmatuur/` | Controles en ondersteunende notebookcode |
 | `afbeeldingen/schermafbeeldingen/` | Bedieningsvoorbeelden met bronvermelding |
 | `documentatie/` | Controle- en voorbereidingsinstructies |
@@ -47,7 +49,7 @@ GitHub Codespaces en DigitalOcean hebben afzonderlijke facturering. Voor noteboo
 
 ## Docentcontrole
 
-Zie [notebook 01 controleren](documentatie/notebook_01_controleren.md), [notebook 02 controleren](documentatie/notebook_02_controleren.md) , [notebook 03 controleren](documentatie/notebook_03_controleren.md) en [notebook 04 controleren](documentatie/notebook_04_controleren.md) voor de testvolgorde, uitgevoerde controles en beperkingen.
+Zie [notebook 01 controleren](documentatie/notebook_01_controleren.md), [notebook 02 controleren](documentatie/notebook_02_controleren.md), [notebook 03 controleren](documentatie/notebook_03_controleren.md), [notebook 04 controleren](documentatie/notebook_04_controleren.md) en [notebook 05 controleren](documentatie/notebook_05_controleren.md) voor de testvolgorde, uitgevoerde controles en beperkingen.
 
 ## Licentie
 

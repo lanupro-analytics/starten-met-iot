@@ -33,3 +33,6 @@ documentatie/specificatie_practicum.md
 *.wachtwoorden
 *.csr
 *.srl
+
+# Instellingen met MQTT-clientwachtwoorden voor de ontvanger.
+*.geheim.json

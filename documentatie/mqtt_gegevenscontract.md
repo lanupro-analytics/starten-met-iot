@@ -41,3 +41,13 @@ De logische sleutel is `(bron, record_id)`. Gebruik geen nieuwe UUID per verzend
 `publiceer_selectie` registreert een succesvolle PUBACK per bestemming, topic, bron en record_id in een aparte lokale SQLite-administratie. Een gewone herhaling slaat bevestigde records binnen de aangeboden selectie over. `opnieuw=True` verstuurt die selectie opnieuw. Gewijzigde inhoud bij een eerder geregistreerde identiteit geeft een fout. De administratie is geen meetdatabase en geen bewijs van ontvangst bij een partner.
 
 Een onderbreking tussen brokerbevestiging en lokale registratie kan een herhaling veroorzaken. Verlies van de lokale administratie kan eveneens leiden tot herpublicatie. Een toekomstige ontvanger moet daarom altijd duplicaten afhandelen. Start in notebook 05 eerst beide ontvangers, herpubliceer daarna beide volledige beginsets en controleer de opgeslagen aantallen. Dit geldt ook wanneer notebook 04 reeds is afgerond.
+
+## Uitvoering vanaf notebook 05
+
+De ontvanger valideert strikt schema, bron/rol/eenheid, topic/deelnemer, lange tekstidentificaties, bronvelden, tijdrepresentatie en hokmetadata. Ongeldige berichten verhogen een teller en stoppen de ontvanger niet. Nul blijft een geldige getalwaarde en null blijft ontbrekend. Kwaliteitsvlaggen blijven behouden.
+
+De serverdatabase bewaart `(bron, record_id)` als samengestelde primaire sleutel. `inhoud_json` bevat de canonieke inhoud zonder deelnemer. `eerste_deelnemer` bewaart afzonderlijk de eerste transportherkomst. Identieke herhalingen verhogen dubbel. Afwijkende inhoud bij een bestaande sleutel verhoogt conflict en overschrijft niets. Een inhoudsmanifest vergelijkt op record_id gesorteerde regels `record_id:inhoud_sha256` met de broncontrole.
+
+De ontvanger gebruikt één SQLite-schrijver met WAL en synchronous FULL. Ontvangstbevestigingen worden pas na de transactie verstuurd. Na uitval maakt iedere client opnieuw verbinding en vraagt hetzelfde abonnement opnieuw aan. Historie wordt expliciet hergepubliceerd.
+
+De volledige publicatie gebruikt groepen van maximaal honderd records. Brokerbuffers zijn begrensd via `server/configuratie/ontvangst-capaciteit.conf`. Een buffer kan bij overbelasting vollopen. Daarom vormen bron- en ontvangstmanifesten, niet uitsluitend PUBACK-tellingen, de eindcontrole. Alle oorspronkelijke metingen blijven bewaard, ook wanneer ze voor latere analyse moeten worden uitgesloten.

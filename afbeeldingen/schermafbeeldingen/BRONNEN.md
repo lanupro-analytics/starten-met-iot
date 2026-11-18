@@ -11,9 +11,11 @@ Licentie: [Creative Commons Naamsvermelding 4.0 Internationaal](https://creative
 - [versiebeheer_openen.png](https://docs.github.com/assets/cb-33788/images/help/codespaces/source-control-activity-bar-button.png)
 - [wijzigingen_selecteren.png](https://docs.github.com/assets/cb-33843/images/help/codespaces/codespaces-commit-stage.png)
 
-## Eigen schermafbeeldingen bij notebook 02
+## Eigen schermafbeeldingen bij notebook 02 en 03
 
 `02_databankstructuur.png`, `02_gegevens_bekijken.png`, `02_query.png`, `02_tabeldefinitie.png` en `02_csv_import.png` zijn op 17 november 2026 gemaakt in DB Browser for SQLite 3.13.1 op Windows met de lesdatabank en fictieve oefenrijen. De hoofdvensters zijn bijgesneden om persoonlijke bestandspaden weg te laten. De dialoogvensters tonen de tabeldefinitie en CSV-import. Het gebruik impliceert geen goedkeuring van het lesmateriaal door de makers van DB Browser for SQLite.
+
+`03_ssh_beheer.png` is een eigen opname van een succesvolle SSH-aanmelding als gebruiker `beheer` vanuit Windows PowerShell op een oefen-Droplet. `03_firewall_poorten.png` toont de uitvoer van `ufw status numbered` en `ss -lntp` na het instellen van de firewall.
 
 ## DigitalOcean-afbeeldingen bij notebook 03
 
