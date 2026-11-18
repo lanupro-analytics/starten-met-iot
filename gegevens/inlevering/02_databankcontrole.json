@@ -1,0 +1,11 @@
+{
+  "deelnemerscode": "proefdocent",
+  "branch": "student/proefdocent",
+  "rol": "gewichten",
+  "werkdatabase": "gegevens/werk/asserva.db",
+  "aantal_metingen": 80028,
+  "aantal_hokken": 10,
+  "basis_vanaf": "2023-08-24",
+  "basis_tot_en_met": "2023-09-20",
+  "metingen_sha256": "e58662a60f114deae4f983e8250016a104870c6d4c0963366a21cb9ac854b699"
+}
