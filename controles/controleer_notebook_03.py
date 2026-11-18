@@ -26,6 +26,9 @@ for cell in nb.cells:
         assert 'docent/notebooks/' not in cell.source
         for target in re.findall(r'\]\((\.\./[^)]+)\)',cell.source):
             assert (pad.parent/target).is_file(),target
+        if '```bash' in cell.source:
+            s=cell.source.strip()
+            assert s.startswith('```bash') and s.endswith('```') and s.count('```')==2, f'Bash-blok niet los in {cell.id}'
 blocks=[b for c in nb.cells if c.cell_type=='markdown' for b in re.findall(r'```bash\n(.*?)```',c.source,re.S)]
 assert len(blocks)>=20
 with tempfile.TemporaryDirectory() as tmp:
