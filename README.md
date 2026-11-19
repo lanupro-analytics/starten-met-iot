@@ -6,28 +6,29 @@ Dit practicum onderzoekt hoe gewichten en voederopname worden opgeslagen, uitgew
 
 De bestaande [introductie 00](notebooks/00_start_hier.ipynb) blijft beschikbaar.
 
-Begin met **[01 · Je eigen werkomgeving inrichten](docent/notebooks/01_werkomgeving_inrichten.ipynb)**. De volledige notebooks staan voorlopig in `docent/notebooks/`. Ze bevatten uitvoerbare code en antwoorden. De tekst binnen de notebooks gebruikt al de toekomstige studentenlocatie `notebooks/`.
+Begin met **[01 · Je eigen werkomgeving inrichten](notebooks/01_werkomgeving_inrichten.ipynb)**. De studentenversies staan in `notebooks/`, zonder vooraf ingevulde antwoorden of docent-hulpcellen.
 
 1. Gebruik als basisbranch **`main`**, zodra de gewenste lesbestanden daarin beschikbaar zijn.
 2. Maak jouw eigen **`student/voornaam_achternaam`**-branch, met kleine letters en zonder spaties.
 3. Start een Codespace op die branch en open notebook 01.
-4. Ga verder met **[02 · Databanken verkennen en aanvullen](docent/notebooks/02_databanken_verkennen_en_aanvullen.ipynb)**.
-5. Doorloop vervolgens **[03 · Je eigen server inrichten](docent/notebooks/03_eigen_server_inrichten.ipynb)**. Iedere deelnemer gebruikt een eigen Droplet in team `lanupro-tech`, project `starten-met-iot`.
+4. Ga verder met **[02 · Databanken verkennen en aanvullen](notebooks/02_databanken_verkennen_en_aanvullen.ipynb)**.
+5. Doorloop vervolgens **[03 · Je eigen server inrichten](notebooks/03_eigen_server_inrichten.ipynb)**. Iedere deelnemer gebruikt een eigen Droplet in team `lanupro-tech`, project `starten-met-iot`.
 
-Voor een proefuitvoering kun je `student/proefdocent` gebruiken. Bewaar een bestaande eigen branch om werk te hervatten. Zolang notebook 03 op de ontwikkelbranch staat, volg je de [controlehandleiding voor 03](documentatie/notebook_03_controleren.md) voor het kiezen van de proefbranch. De lokale technische controle is uitgevoerd; de DigitalOcean- en Codespaces-praktijktest staat nog open.
+Voor een docent-proefuitvoering vanuit `docent/notebooks/` kun je `student/proefdocent` gebruiken. Bewaar een bestaande eigen branch om werk te hervatten. Zolang een notebook op de ontwikkelbranch staat, volg je de bijbehorende controlehandleiding in `documentatie/` voor het kiezen van de proefbranch.
 
-Ga daarna verder met **[04 · Metingen publiceren met MQTT](docent/notebooks/04_metingen_publiceren_met_mqtt.ipynb)**. Je maakt een JSON-bericht, volgt de ontvangst en publiceert een kleine selectie uit je eigen werkdatabase.
+Ga daarna verder met **[04 · Metingen publiceren met MQTT](notebooks/04_metingen_publiceren_met_mqtt.ipynb)**. Je maakt een JSON-bericht, volgt de ontvangst en publiceert een kleine selectie uit je eigen werkdatabase.
 
-Vervolg met **[05 · Metingen ontvangen en opslaan](docent/notebooks/05_metingen_ontvangen_en_opslaan.ipynb)**. Je richt de ontvanger op je eigen server in, voegt de partnerstroom toe en controleert de volledige beginsets.
+Vervolg met **[05 · Metingen ontvangen en opslaan](notebooks/05_metingen_ontvangen_en_opslaan.ipynb)**. Je richt de ontvanger op je eigen server in, voegt de stroom van een andere gebruiker toe en controleert de volledige databases.
 
-Notebooks 06–08 en de afgeleide studentenversies zijn nog niet beschikbaar. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
+Notebooks 06–08 zijn nog niet beschikbaar. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
 
 ## Bestanden
 
 | Map | Inhoud |
 |---|---|
-| `notebooks/` | Ongewijzigde introductie 00 |
-| `docent/notebooks/` | Volledig uitgewerkte notebooks 01–05 |
+| `notebooks/` | Ongewijzigde introductie 00 en studentenversies 01–05 |
+| `docent/notebooks/` | Volledig uitgewerkte docentversies 01–05 |
+| `hulpmiddelen/` | Scripts voor startdatabanken en studentenversies |
 | `gegevens/origineel/` | Vrijgegeven lesdatabanken met de eerste vier weken |
 | `gegevens/oefeningen/` | Vier fictieve oefenrijen in Excel en CSV |
 | `gegevens/werk/` | Werkbestanden in de Codespace, niet opgenomen in Git |
