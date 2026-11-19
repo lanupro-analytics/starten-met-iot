@@ -1,11 +1,11 @@
-"""Bouw of ververs de schone `student`-branch vanuit `JRNDgrt` zonder merge-conflicten.
+"""Bouw of ververs de schone `studentenversie`-branch vanuit `jrndgrt` zonder merge-conflicten.
 
 Gebruikt een tijdelijke Git-index zodat je werkmap (`gegevens/werk/`, open bestanden)
-volledig ongemoeid blijft. De commit op `student` krijgt de huidige `student`- of
-`main`-branch als parent en neemt de volledige bestandsboom van `JRNDgrt` over,
-zonder `docent/` en zonder proefinleverbestanden (`gegevens/inlevering/*.json`,
-`gegevenswerkca.crt`). Daardoor blijft `main` altijd zonder merge-conflict
-fast-forward bij te werken.
+volledig ongemoeid blijft. De commit op `studentenversie` krijgt de huidige
+`studentenversie`- of `main`-branch als parent en neemt de volledige bestandsboom
+van `jrndgrt` over, zonder `docent/` en zonder proefinleverbestanden
+(`gegevens/inlevering/*.json`, `gegevenswerkca.crt`). Daardoor blijft `main` altijd
+zonder merge-conflict fast-forward bij te werken.
 """
 from __future__ import annotations
 
@@ -117,7 +117,7 @@ def werk_main_bij(doel_branch: str, basis_branch: str) -> None:
 
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--bron", default="JRNDgrt", help="Docentbranch (standaard: JRNDgrt)")
+    p.add_argument("--bron", default="jrndgrt", help="Docentbranch (standaard: jrndgrt)")
     p.add_argument("--doel", default="studentenversie", help="Studentenbranch (standaard: studentenversie)")
     p.add_argument("--main", default="main", help="Basisbranch (standaard: main)")
     p.add_argument(
