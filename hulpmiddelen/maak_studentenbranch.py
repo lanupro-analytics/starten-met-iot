@@ -118,7 +118,7 @@ def werk_main_bij(doel_branch: str, basis_branch: str) -> None:
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--bron", default="JRNDgrt", help="Docentbranch (standaard: JRNDgrt)")
-    p.add_argument("--doel", default="student", help="Studentenbranch (standaard: student)")
+    p.add_argument("--doel", default="studentenversie", help="Studentenbranch (standaard: studentenversie)")
     p.add_argument("--main", default="main", help="Basisbranch (standaard: main)")
     p.add_argument(
         "--werk-main-bij",
