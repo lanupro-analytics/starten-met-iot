@@ -1,7 +1,13 @@
 # Gegevens en opslag
 
-`werk/` bevat werkbestanden van de Codespace. Git slaat de inhoud over. Verwijdering van de Codespace verwijdert ook bestanden die niet elders zijn bewaard.
+`origineel/asserva.db` bevat 80.028 gewichtsmetingen. `origineel/schauer.db` bevat 146.649 voederbezoeken. Beide bestanden bevatten de eerste vier weken: 24 augustus tot en met 20 september 2023. Ze zijn vrijgegeven voor opname in deze openbare onderwijsrepository. Bewaar deze startbestanden ongewijzigd.
 
-`inlevering/` bevat kleine, bewust geselecteerde resultaten. Notebook 01 maakt daar een JSON-controlebestand. Controleer de inhoud voordat je commit en push gebruikt.
+In het [gegevenswoordenboek](gegevenswoordenboek.md) staan de velden, eenheden en beperkingen. Lichaamsgewicht is uitgedrukt in kg; voederopname per bezoek in gram. De meettijden zijn vermoedelijk Belgische lokale tijden en zijn niet naar UTC omgerekend. De bronselectie bevat geen aanvullende kwaliteitsfiltering. De resterende vijftien kalenderdagen zijn gereserveerd voor een latere oefening en zijn hier nog niet toegevoegd.
 
-Er zijn in deze versie nog geen Asserva- of Schauer-lesdatabases toegevoegd. Onderzoeksbestanden worden pas verspreid na vastlegging van de toegestane onderwijsselectie. De bronbestanden horen niet automatisch in deze openbare repository.
+Notebook 02 gebruikt de tien hoknummers uit `metingen.PEN`. Studenten maken zelf `hokken`, met per hok gebouw M5, afdeling 1 en oppervlakte 8 m². De bestanden `oefeningen/oefenhokken.xlsx` en `.csv` zijn verouderd oefenmateriaal en worden niet meer gebruikt.
+
+`werk/` bevat werkbestanden van de Codespace. Git slaat de inhoud over. Bewaar de lokale kopie van je databank; verwijdering van de Codespace verwijdert ook bestanden die niet elders zijn bewaard. Upload in notebook 02 naar `werk/invoer/`; na controle wordt de werkdatabank in `werk/` bewaard. Een afwijkend bestaand werkbestand wordt niet overschreven.
+
+`inlevering/` bevat kleine, bewust geselecteerde resultaten. Notebook 01 maakt een werkplekcontrole; notebook 02 maakt een databankcontrole. Controleer de inhoud voordat je commit en push gebruikt.
+
+De startdatabanken zijn reproduceerbaar met `hulpmiddelen/maak_startdatabanken.py`. Het bestand `origineel/maakcontrole.json` legt de broncontrolesommen, selectie en aantallen vast. De volledige onderzoeksbestanden zijn niet opgenomen.

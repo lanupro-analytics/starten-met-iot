@@ -8,7 +8,7 @@
 4. Doorloop de instructies. De code en modelantwoorden zijn al ingevuld. De rol `gewichten` is geschikt voor deze proef.
 5. Controleer de echte handelingen: branch maken, Codespace starten, tekstbestand aanpassen, selectief committen, pushen, controleren op GitHub en hervatten.
 
-De docentnotebook is de inhoudelijke bron. Er is nog geen studentenversie gegenereerd en er zijn nog geen nieuwe notebooks 02–08.
+De docentnotebook is de inhoudelijke bron. Er is nog geen studentenversie gegenereerd en er zijn nog geen nieuwe notebooks 02â€“08.
 
 ## Beoordelingspunten
 
@@ -38,7 +38,7 @@ Een succesvolle lokale controle is geen bewijs van GitHub-accountrechten of van 
 
 Controleer de schrijfrechten op de gedeelde repository, de aangewezen basisbranch en Codespaces-beschikbaarheid. Gebruik deelnemerscodes zonder spaties of persoonsgegevens. Wijs de rolverdeling zelf toe.
 
-De interne specificatie en bronverkenning blijven lokaal beschikbaar, maar worden niet meegepubliceerd. De repository bevat nog geen onderzoeksdata. Definitieve verspreiding van die data en de studentenversies wordt afzonderlijk voorbereid.
+De interne specificatie en bronverkenning blijven lokaal beschikbaar, maar worden niet meegepubliceerd. De vrijgegeven vierweekse lesdatabanken zijn toegevoegd voor notebook 02. De studentenversies worden later afgeleid.
 
 ## Uitgevoerde controle op 17 november 2026
 
