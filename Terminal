@@ -1,0 +1,7 @@
+root@iot-kenzo-meulemeester:~# whoami
+hostname
+ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub
+root
+iot-kenzo-meulemeester
+256 SHA256:6OVer8PcQDNsKIbnKARcz9rEoN5KvyY/kB8jO2PbBcQ root@iot-kenzo-meulemeester (ED25519)
+yes
