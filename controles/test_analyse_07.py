@@ -1,0 +1,164 @@
+"""Kleine rekenvoorbeelden bewaken tijdsgrenzen, eenheden en ontbrekende gegevens."""
+from pathlib import Path
+import sys, unittest, tempfile
+import pandas as pd
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'programmatuur'))
+from analyse_07 import schat_gewicht, bereken_intervallen, vat_hokken_samen, bewaar_basis, selecteer
+
+class Rekenen(unittest.TestCase):
+    def setUp(self):
+        self.pop=pd.DataFrame({'dier_id':['a','b'],'hok':['1','1']})
+        self.dag=pd.DataFrame([
+            {'dier_id':a,'hok':'1','tijd':pd.Timestamp(t),'waarde':w}
+            for a,w0,w1 in [('a',10.,12.),('b',10.,14.)]
+            for t,w in [('2023-08-25 00:00',w0),('2023-08-27 00:00',w1)]
+            for k in range(5)])
+        self.voer=pd.DataFrame([
+            {'dier_id':a,'hok':'1','tijd':pd.Timestamp(t),'waarde':v}
+            for a,v in [('a',1500.),('b',2000.)]
+            for t in ['2023-08-25 12:00','2023-08-26 12:00']])
+        self.grenzen=['2023-08-25','2023-08-27']
+
+    def test_vijf_dichtste_en_minder_dan_vijf(self):
+        doel=pd.Timestamp('2023-08-25')
+        d=pd.DataFrame({'tijd':[doel+pd.Timedelta(hours=h) for h in (-100,-3,-2,1,2,4,99)],
+                        'waarde':[999,10,12,14,16,18,999]})
+        gewicht,reden,afstand=schat_gewicht(d,doel)
+        self.assertEqual(gewicht,14)
+        self.assertEqual(afstand,4)
+        self.assertIsNone(schat_gewicht(d.iloc[:4],doel)[0])
+        # Er is geen maximumafstand of eis dat het doel omsloten wordt.
+        gewicht,_,afstand=schat_gewicht(d,doel-pd.Timedelta(days=20))
+        self.assertIsNotNone(gewicht)
+        self.assertGreater(afstand,48)
+
+    def test_groepen_verhouding_van_totalen(self):
+        x=bereken_intervallen(self.dag,self.voer,self.pop,self.grenzen)
+        h=vat_hokken_samen(x).iloc[0]
+        self.assertEqual(h['dieren_bruikbaar'],2)
+        self.assertAlmostEqual(h['voeder_kg'],7)
+        self.assertAlmostEqual(h['groei_kg'],6)
+        self.assertAlmostEqual(h['voederconversie'],7/6)
+        self.assertAlmostEqual(h['groei_g_dier_dag'],1500)
+        self.assertAlmostEqual(h['voeder_g_dier_dag'],1750)
+
+    def test_grens_exclusief_en_ontbrekend_geen_nul(self):
+        voer=pd.concat([self.voer,pd.DataFrame([{'dier_id':'a','hok':'1','tijd':pd.Timestamp('2023-08-27'),'waarde':99999}])])
+        x=bereken_intervallen(self.dag,voer,self.pop,self.grenzen)
+        self.assertEqual(x.loc[x.dier_id=='a','voeder_kg'].iloc[0],3)
+        voer=self.voer.iloc[1:].copy()
+        x=bereken_intervallen(self.dag,voer,self.pop,self.grenzen)
+        self.assertTrue(x.loc[x.dier_id=='a','bruikbaar'].iloc[0])
+        self.assertEqual(x.loc[x.dier_id=='a','voederdagen'].iloc[0],1)
+        self.assertEqual(vat_hokken_samen(x).iloc[0]['dieren_bruikbaar'],2)
+        leeg=bereken_intervallen(self.dag,voer[voer.dier_id!='a'],self.pop,self.grenzen)
+        self.assertIn('geen_voederrecords',leeg.loc[leeg.dier_id=='a','reden'].iloc[0])
+
+    def test_nulgroei_en_nulbezoek(self):
+        d=self.dag.copy(); d.loc[d.dier_id=='a','waarde']=10
+        v=self.voer.copy(); v.loc[v.dier_id=='b','waarde']=0
+        x=bereken_intervallen(d,v,self.pop,self.grenzen)
+        self.assertIn('geen_positieve_groei',x.loc[x.dier_id=='a','reden'].iloc[0])
+        self.assertEqual(x.loc[x.dier_id=='b','voederconversie'].iloc[0],0)
+
+    def test_basis_bewaren_en_niet_overschrijven(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp)/'basis'
+            dier=bereken_intervallen(self.dag,self.voer,self.pop,self.grenzen)
+            hok=vat_hokken_samen(dier)
+            a=bewaar_basis(p,self.pop,self.dag,dier,hok,{}, {'grenzen':self.grenzen})
+            b=bewaar_basis(p,self.pop,self.dag,dier,hok,{}, {'grenzen':self.grenzen})
+            self.assertEqual(a,b)
+            veranderd=hok.copy(); veranderd['voeder_kg']=999
+            with self.assertRaises(ValueError): bewaar_basis(p,self.pop,self.dag,dier,veranderd,{}, {'grenzen':self.grenzen})
+            self.assertEqual((p/'beginsituatie.json').read_text(),__import__('json').dumps(a,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+
+    def test_selectie_eenheid_dubbel_en_hokkoppeling(self):
+        rijen=[]
+        for bron,rol,eenheid,waarde in [('asserva','gewichten','kg',10),('schauer','voederopname','g',0)]:
+            for dier in ['a','b']:
+                rijen.append({'bron':bron,'meettype':rol,'eenheid':eenheid,'record_id':bron+dier,
+                    'dier_id':dier,'hok':'2' if dier=='b' and bron=='schauer' else '1',
+                    'datum':'2023-08-25','tijd':'2023-08-25T12:00:00','einde':'2023-08-25T12:00:01',
+                    'waarde':waarde,'foutcode':'no error','vlag':'0','herkomst':'0'})
+        d=pd.DataFrame(rijen)
+        g,v,p,a,u=selecteer(d)
+        self.assertEqual(list(p.dier_id),['a'])
+        self.assertEqual(list(u.dier_id),['b'])
+        self.assertEqual(v.iloc[0].waarde,0)
+        extra = d[d.dier_id.eq('a')].copy()
+        extra['record_id'] += '_uitgesloten'
+        extra['vlag'] = 'flagged'
+        extra['waarde'] = 99999
+        gg,vv,_,_,_ = selecteer(pd.concat([d,extra],ignore_index=True))
+        self.assertTrue(gg.vlag.eq('0').all() and vv.vlag.eq('0').all())
+        self.assertEqual(len(gg),len(g))
+        self.assertEqual(len(vv),len(v))
+        with self.assertRaises(ValueError): selecteer(pd.concat([d,d.iloc[[0]]]))
+        d.loc[0,'eenheid']='g'
+        with self.assertRaises(ValueError): selecteer(d)
+
+    def test_grafiekassen_tonen_alle_hokken(self):
+        import matplotlib
+        matplotlib.use('Agg')
+        import matplotlib.pyplot as plt
+        from figuren_07 import intervalfiguur
+        dier=bereken_intervallen(self.dag,self.voer,self.pop,self.grenzen)
+        h=vat_hokken_samen(dier)
+        tweede=h.copy(); tweede['hok']='2'; tweede['voederconversie']=10
+        h=pd.concat([h,tweede],ignore_index=True)
+        f=intervalfiguur(h,'conversie')
+        try: self.assertGreater(f.axes[0].get_ylim()[1],10)
+        finally: plt.close(f)
+
+    def test_kilogramweergave_verandert_geen_conversie(self):
+        import matplotlib.pyplot as plt
+        from figuren_07 import intervalfiguur
+        import numpy as np
+        h = vat_hokken_samen(bereken_intervallen(self.dag,self.voer,self.pop,self.grenzen))
+        gram = intervalfiguur(h)
+        kilo = intervalfiguur(h,kilogram=True)
+        conversie = intervalfiguur(h,'conversie',kilogram=True)
+        try:
+            for a,b in zip(gram.axes[0].lines[:2],kilo.axes[0].lines[:2]):
+                np.testing.assert_allclose(b.get_ydata(),a.get_ydata()/1000)
+            np.testing.assert_allclose(kilo.axes[0].get_ylim(),np.array(gram.axes[0].get_ylim())/1000)
+            np.testing.assert_allclose(conversie.axes[0].lines[0].get_ydata(),h.voederconversie)
+            self.assertEqual(kilo.axes[0].get_ylabel(),'kg per dier per dag')
+        finally:
+            for f in (gram,kilo,conversie): plt.close(f)
+
+    def test_procestijd_bewaart_uren_en_minuten(self):
+        from figuren_07 import procestijd
+        start=pd.Timestamp('2023-08-24 12:00:00')
+        tijd=pd.Series([start,start+pd.Timedelta(days=1,hours=12,minutes=30)])
+        self.assertAlmostEqual(procestijd(tijd,start).iloc[0],0)
+        self.assertAlmostEqual(procestijd(tijd,start).iloc[1],1+12.5/24)
+        # Een latere selectie krijgt geen nieuw nulpunt.
+        self.assertAlmostEqual(procestijd(tijd.iloc[1:],start).iloc[0],1+12.5/24)
+
+    def test_intervalposities_en_wissellijnen(self):
+        import matplotlib.pyplot as plt
+        import numpy as np
+        from figuren_07 import intervalfiguur,procestijd,PROCESSTART
+        h=vat_hokken_samen(bereken_intervallen(self.dag,self.voer,self.pop,self.grenzen))
+        f=intervalfiguur(h,start=PROCESSTART)
+        try:
+            verwacht=(procestijd(h.vanaf,PROCESSTART)+procestijd(h.tot,PROCESSTART))/2
+            np.testing.assert_allclose(f.axes[0].lines[0].get_xdata(),verwacht)
+            for lijn,dag in zip(f.axes[0].lines[-2:],(10,18)):
+                np.testing.assert_allclose(lijn.get_xdata(),[dag,dag])
+            self.assertIn(18,f.axes[0].get_xticks())
+        finally: plt.close(f)
+
+    def test_dekking_volgt_24_uur_vanaf_intervalstart(self):
+        origineel=bereken_intervallen(self.dag,self.voer,self.pop,self.grenzen)
+        verschuiving=pd.Timedelta(hours=12)
+        dag=self.dag.copy();voer=self.voer.copy()
+        dag['tijd']+=verschuiving;voer['tijd']+=verschuiving
+        if 'einde' in voer: voer['einde']+=verschuiving
+        nieuw=bereken_intervallen(dag,voer,self.pop,[pd.Timestamp(x)+verschuiving for x in self.grenzen])
+        for kolom in ('voederdagen','voeder_kg','groei_kg','bruikbaar','reden'):
+            pd.testing.assert_series_equal(origineel[kolom],nieuw[kolom])
+
+if __name__=='__main__': unittest.main(verbosity=2)
