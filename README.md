@@ -20,15 +20,15 @@ Ga daarna verder met **[04 · Metingen publiceren met MQTT](notebooks/04_metinge
 
 Vervolg met **[05 · Metingen ontvangen en opslaan](notebooks/05_metingen_ontvangen_en_opslaan.ipynb)**. Je richt de ontvanger op je eigen server in, voegt de stroom van een andere gebruiker toe en controleert de volledige databases.
 
-De docentversies van **[06 · Gegevens opvragen via een API](docent/notebooks/06_gegevens_opvragen_via_een_api.ipynb)** en **[07 · Groei, voederopname en voederconversie onderzoeken](docent/notebooks/07_voederconversie_berekenen_en_visualiseren.ipynb)** zijn beschikbaar op de docentbranch `jrndgrt`, met de [controlehandleiding voor 06](documentatie/notebook_06_controleren.md) en [voor 07](documentatie/notebook_07_controleren.md). De studentenversies van 06 en 07 zijn nog niet vrijgegeven.
+Ga vervolgens verder met **[06 · Gegevens opvragen via een API](notebooks/06_gegevens_opvragen_via_een_api.ipynb)** en **[07 · Groei, voederopname en voederconversie onderzoeken](notebooks/07_voederconversie_berekenen_en_visualiseren.ipynb)**.
 
-De docentversie van **[08 · Nieuwe gegevens toevoegen en interpreteren](docent/notebooks/08_nieuwe_gegevens_toevoegen_en_interpreteren.ipynb)** sluit de reeks af met de aanvulling, vergelijking en een bedrijfsadvies. Zie de [controlehandleiding voor 08](documentatie/notebook_08_controleren.md). De studentenversie van 08 is nog niet vrijgegeven. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
+Sluit de reeks af met **[08 · Nieuwe gegevens toevoegen en interpreteren](notebooks/08_nieuwe_gegevens_toevoegen_en_interpreteren.ipynb)** voor de Excel-aanvulling, de fasevergelijking en je bedrijfsadvies. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
 
 ## Bestanden
 
 | Map | Inhoud |
 |---|---|
-| `notebooks/` | Ongewijzigde introductie 00 en studentenversies 01–05 |
+| `notebooks/` | Ongewijzigde introductie 00 en studentenversies 01–08 |
 | `docent/notebooks/` | Volledig uitgewerkte docentversies 01–08 |
 | `hulpmiddelen/` | Scripts voor startdatabanken en studentenversies |
 | `gegevens/origineel/` | Vrijgegeven lesdatabanken met de eerste vier weken |
@@ -53,7 +53,7 @@ GitHub Codespaces en DigitalOcean hebben afzonderlijke facturering. Voor noteboo
 
 ## Docentcontrole
 
-Zie [notebook 01 controleren](documentatie/notebook_01_controleren.md), [notebook 02 controleren](documentatie/notebook_02_controleren.md), [notebook 03 controleren](documentatie/notebook_03_controleren.md), [notebook 04 controleren](documentatie/notebook_04_controleren.md) en [notebook 05 controleren](documentatie/notebook_05_controleren.md) voor de testvolgorde, uitgevoerde controles en beperkingen.
+Zie [notebook 01 controleren](documentatie/notebook_01_controleren.md), [notebook 02 controleren](documentatie/notebook_02_controleren.md), [notebook 03 controleren](documentatie/notebook_03_controleren.md), [notebook 04 controleren](documentatie/notebook_04_controleren.md), [notebook 05 controleren](documentatie/notebook_05_controleren.md), [notebook 06 controleren](documentatie/notebook_06_controleren.md), [notebook 07 controleren](documentatie/notebook_07_controleren.md) en [notebook 08 controleren](documentatie/notebook_08_controleren.md) voor de testvolgorde, uitgevoerde controles en beperkingen.
 
 ## Licentie
 
