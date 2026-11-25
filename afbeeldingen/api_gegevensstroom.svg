@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="450" viewBox="0 0 1100 450" role="img" aria-labelledby="titel beschrijving">
+<title id="titel">Van toestelgegevens naar een analyse op kantoor</title>
+<desc id="beschrijving">Diergewichtscomputer en voedercomputer sturen metingen via MQTT. De ontvanger op de server bewaart ze in SQLite. De kantoorcomputer vraagt via HTTPS gegevens op aan de API en bewaart een eigen analysedatabase.</desc>
+<defs><marker id="pijl" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 Z" fill="#265c78"/></marker></defs>
+<rect width="1100" height="450" fill="#fff"/>
+<g font-family="Arial, sans-serif" font-size="17" fill="#173747">
+<text x="30" y="32" font-size="24" font-weight="bold">Gegevens opvragen vanuit het kantoor</text>
+<rect x="25" y="70" width="250" height="125" rx="10" fill="#e3f2fd" stroke="#1976d2"/>
+<text x="45" y="100" font-weight="bold">Diergewichtscomputer</text><text x="45" y="128">Codespace · asserva.db</text><text x="45" y="165">Publiceert gewichten</text>
+<rect x="25" y="235" width="250" height="125" rx="10" fill="#e3f2fd" stroke="#1976d2"/>
+<text x="45" y="265" font-weight="bold">Voedercomputer</text><text x="45" y="293">Codespace · schauer.db</text><text x="45" y="330">Publiceert voederopname</text>
+<rect x="380" y="70" width="330" height="290" rx="10" fill="#f1f8f4" stroke="#2e7d32"/>
+<text x="400" y="100" font-weight="bold">Eigen server · DigitalOcean</text>
+<text x="400" y="134">MQTT-broker + ontvanger*</text>
+<path d="M545 145 V171" stroke="#265c78" stroke-width="2" marker-end="url(#pijl)"/>
+<rect x="400" y="181" width="290" height="52" rx="5" fill="#fff" stroke="#2e7d32"/><text x="410" y="213" font-size="16">verzamelde_metingen.db</text>
+<path d="M545 242 V270" stroke="#265c78" stroke-width="2" marker-end="url(#pijl)"/>
+<rect x="400" y="280" width="290" height="55" rx="5" fill="#fff" stroke="#2e7d32"/><text x="435" y="314">FastAPI achter Nginx</text>
+<rect x="830" y="145" width="245" height="215" rx="10" fill="#fff8e1" stroke="#c38e16"/>
+<text x="850" y="180" font-weight="bold">Kantoorcomputer</text><text x="850" y="210">Codespace · Notebook 06</text><text x="850" y="252">Vraagt gegevens op</text><text x="850" y="287">Bewaart analyse_06.db</text><text x="850" y="327">Later: berekenen in 07</text>
+<path d="M275 125 H370" stroke="#265c78" stroke-width="2" marker-end="url(#pijl)"/><text x="294" y="112">MQTT</text>
+<path d="M275 285 H327 V148 H370" fill="none" stroke="#265c78" stroke-width="2" marker-end="url(#pijl)"/>
+<path d="M830 287 H720" stroke="#265c78" stroke-width="2" marker-end="url(#pijl)"/><text x="733" y="274">GET</text>
+<path d="M710 323 H820" stroke="#265c78" stroke-width="2" marker-end="url(#pijl)"/><text x="735" y="348">JSON</text>
+<text x="733" y="240" font-weight="bold">HTTPS</text>
+<text x="25" y="400" font-size="16">* De ontvanger volgt de eigen broker én de partnerbroker. Hier is één verzameldatabase weergegeven.</text>
+<text x="25" y="429" font-size="16">Toestelcomputer en kantoorcomputer zijn aparte functies die je in dezelfde Codespace kunt uitvoeren.</text>
+</g></svg>

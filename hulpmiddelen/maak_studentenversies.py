@@ -1,4 +1,4 @@
-"""Genereer de studentenversies 01–05 vanuit docent/notebooks/ naar notebooks/.
+"""Genereer studentenversies 01–06 vanuit docent/notebooks/ naar notebooks/.
 
 - Laat notebooks/00_start_hier.ipynb volledig ongemoeid (SHA-256-bewaakt).
 - Verwijdert alle cellen met tag "oplossing" (antwoorden, oplossings-code en docent-bypasses).
@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 import ast
+import argparse
 import hashlib
 import json
 import re
@@ -153,11 +154,17 @@ def controleer_studentennotebook(pad: Path) -> None:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--nummer', type=int, choices=range(1, 7),
+                        help='Genereer uitsluitend dit notebook. Zonder keuze: 01–06.')
+    args = parser.parse_args()
     controleer_notebook_00()
-    docent_notebooks = sorted(DOCENT_DIR.glob("0[1-5]_*.ipynb"))
-    if len(docent_notebooks) != 5:
+    patroon = f'{args.nummer:02d}_*.ipynb' if args.nummer else '0[1-6]_*.ipynb'
+    docent_notebooks = sorted(DOCENT_DIR.glob(patroon))
+    verwacht = 1 if args.nummer else 6
+    if len(docent_notebooks) != verwacht:
         raise RuntimeError(
-            f"Verwacht 5 docentnotebooks (01-05), gevonden: {[p.name for p in docent_notebooks]}"
+            f"Verwacht {verwacht} docentnotebooks, gevonden: {[p.name for p in docent_notebooks]}"
         )
 
     for docent_pad in docent_notebooks:
@@ -170,7 +177,7 @@ def main() -> None:
         )
 
     controleer_notebook_00()
-    print("GESLAAGD: 00_start_hier.ipynb ongewijzigd en studentenversies 01–05 geverifieerd.")
+    print("GESLAAGD: 00_start_hier.ipynb ongewijzigd en geselecteerde studentenversies geverifieerd.")
 
 
 if __name__ == "__main__":
