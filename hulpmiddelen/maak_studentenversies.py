@@ -1,4 +1,4 @@
-"""Genereer studentenversies 01–07 vanuit docent/notebooks/ naar notebooks/.
+"""Genereer studentenversies 01–08 vanuit docent/notebooks/ naar notebooks/.
 
 - Laat notebooks/00_start_hier.ipynb volledig ongemoeid (SHA-256-bewaakt).
 - Verwijdert alle cellen met tag "oplossing" (antwoorden, oplossings-code en docent-bypasses).
@@ -155,13 +155,13 @@ def controleer_studentennotebook(pad: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--nummer', type=int, choices=range(1, 8),
-                        help='Genereer uitsluitend dit notebook. Zonder keuze: 01–07.')
+    parser.add_argument('--nummer', type=int, choices=range(1, 9),
+                        help='Genereer uitsluitend dit notebook. Zonder keuze: 01–08.')
     args = parser.parse_args()
     controleer_notebook_00()
-    patroon = f'{args.nummer:02d}_*.ipynb' if args.nummer else '0[1-7]_*.ipynb'
+    patroon = f'{args.nummer:02d}_*.ipynb' if args.nummer else '0[1-8]_*.ipynb'
     docent_notebooks = sorted(DOCENT_DIR.glob(patroon))
-    verwacht = 1 if args.nummer else 7
+    verwacht = 1 if args.nummer else 8
     if len(docent_notebooks) != verwacht:
         raise RuntimeError(
             f"Verwacht {verwacht} docentnotebooks, gevonden: {[p.name for p in docent_notebooks]}"
