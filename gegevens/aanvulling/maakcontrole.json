@@ -1,0 +1,80 @@
+{
+  "asserva": {
+    "rol": "gewichten",
+    "bronbestand": "20240207_processed_data_body_weight_by_visit.csv",
+    "bron_sha256": "00498ec55fdda94692ceb151651b9262266f10b9b3cf9a45954b302515f9ffd2",
+    "schema": {
+      "ROW_ID": "TEXT",
+      "EID": "TEXT",
+      "PEN": "TEXT",
+      "TREAT": "TEXT",
+      "GENDER": "TEXT",
+      "DATE": "TEXT",
+      "TIMEstart": "TEXT",
+      "TIMEstop": "TEXT",
+      "TIMESTAMPstart": "TEXT",
+      "TIMESTAMPstop": "TEXT",
+      "PROCESSTIME": "REAL",
+      "TRIALDAY": "REAL",
+      "DTMARKER": "REAL",
+      "DTMARKER_INT": "REAL",
+      "VBW": "REAL",
+      "DATAORIGIN": "TEXT",
+      "FLAG_VBW_polyn": "TEXT",
+      "FLAG_VBW_hampel": "TEXT",
+      "FLAG_VBW_matern1": "TEXT",
+      "FLAG_VBW_matern2": "TEXT",
+      "ERROR": "TEXT",
+      "FILTER": "TEXT"
+    },
+    "bladen": {
+      "week_5": 23546,
+      "resterende_dagen": 28648
+    },
+    "aantal": 52194,
+    "vanaf": "2023-09-21",
+    "tot_exclusief": "2023-10-06",
+    "behandeling": "TREAT leeggelaten in de aanvulling. Geen behandelingssleutel in het lesoverzicht.",
+    "xlsx_sha256": "2f90eae267fc0ae94bc7df6714491701148213abec920656b59ea0d110907cb9"
+  },
+  "schauer": {
+    "rol": "voederopname",
+    "bronbestand": "20240225_processed_data_feed_intake_by_visit.csv",
+    "bron_sha256": "a5e9a25923e643429de8938a8d749a8e415ad96185f104b031370c5d9183fc18",
+    "schema": {
+      "ROW_ID": "TEXT",
+      "EID": "TEXT",
+      "PEN": "TEXT",
+      "TREAT": "TEXT",
+      "GENDER": "TEXT",
+      "DATE": "TEXT",
+      "TIMEstart": "TEXT",
+      "TIMEstop": "TEXT",
+      "TIMESTAMPstart": "TEXT",
+      "TIMESTAMPstop": "TEXT",
+      "VFI": "REAL",
+      "VD": "REAL",
+      "VFIS": "REAL",
+      "FLAG_VFI": "TEXT",
+      "FLAG_VD": "TEXT",
+      "FLAG_VFIS": "TEXT",
+      "ERROR": "TEXT",
+      "DATAORIGIN": "TEXT",
+      "FILTER": "TEXT",
+      "BWCLASS": "TEXT",
+      "PROCESSTIME": "REAL",
+      "TRIALDAY": "REAL",
+      "DTMARKER": "REAL",
+      "DTMARKER_INT": "REAL"
+    },
+    "bladen": {
+      "week_5": 38876,
+      "resterende_dagen": 48076
+    },
+    "aantal": 86952,
+    "vanaf": "2023-09-21",
+    "tot_exclusief": "2023-10-06",
+    "behandeling": "TREAT leeggelaten in de aanvulling. Geen behandelingssleutel in het lesoverzicht.",
+    "xlsx_sha256": "7072b884f1c4386bb93eba0e637f9891ca2ef891c564a7a8218598ceb191c050"
+  }
+}

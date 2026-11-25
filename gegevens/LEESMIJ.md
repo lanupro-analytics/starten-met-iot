@@ -2,7 +2,7 @@
 
 `origineel/asserva.db` bevat 80.028 gewichtsmetingen. `origineel/schauer.db` bevat 146.649 voederbezoeken. Beide bestanden bevatten de eerste vier weken: 24 augustus tot en met 20 september 2023. Ze zijn vrijgegeven voor opname in deze openbare onderwijsrepository. Bewaar deze startbestanden ongewijzigd.
 
-In het [gegevenswoordenboek](gegevenswoordenboek.md) staan de velden, eenheden en beperkingen. Lichaamsgewicht is uitgedrukt in kg; voederopname per bezoek in gram. De meettijden zijn vermoedelijk Belgische lokale tijden en zijn niet naar UTC omgerekend. De bronselectie bevat geen aanvullende kwaliteitsfiltering. De resterende vijftien kalenderdagen zijn gereserveerd voor een latere oefening en zijn hier nog niet toegevoegd.
+In het [gegevenswoordenboek](gegevenswoordenboek.md) staan de velden, eenheden en beperkingen. Lichaamsgewicht is uitgedrukt in kg; voederopname per bezoek in gram. De meettijden zijn vermoedelijk Belgische lokale tijden en zijn niet naar UTC omgerekend. De bronselectie bevat geen aanvullende kwaliteitsfiltering. De resterende vijftien kalenderdagen staan in de Excel-bestanden onder [aanvulling/](aanvulling/LEESMIJ.md). Je voegt ze pas in notebook 08 aan je eigen werkdatabase toe. De startdatabanken blijven ongewijzigd.
 
 Notebook 02 gebruikt de tien hoknummers uit `metingen.PEN`. Studenten maken zelf `hokken`, met per hok gebouw M5, afdeling 1 en oppervlakte 8 m². De bestanden `oefeningen/oefenhokken.xlsx` en `.csv` zijn verouderd oefenmateriaal en worden niet meer gebruikt.
 
