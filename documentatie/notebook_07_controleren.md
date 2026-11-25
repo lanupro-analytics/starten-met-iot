@@ -6,7 +6,7 @@ De docentversie bevat 79 cellen met uitgevoerde voorbeeldoutput, vijf tekstvrage
 
 De hoofdroute leest de analysedatabase uit 06, controleert de inhoud, selecteert en koppelt dieren, bouwt daggewichten, werkt één interval uit en maakt overzichten voor alle tien hokken. Drie hoofdfiguren tonen gewichtsverloop, gemiddelde groei en voederopname, en voederconversie. De notebook bewaart automatisch een vaste beginsituatie en `07_analysecontrole.json`.
 
-De [rekenmethode](rekenmethode_07.md) legt de gekozen regels, tijdsgrenzen en beperkingen vast. De hypothesevorming over voederstrategieën is verkennend. Er worden geen behandelingscodes of hoktoewijzingen getoond. Notebook 08 is niet gemaakt en geen studentrelease is gepubliceerd.
+De [rekenmethode](rekenmethode_07.md) legt de gekozen regels, tijdsgrenzen en beperkingen vast. De hypothesevorming over voederstrategieën is verkennend. Er worden geen behandelingscodes of hoktoewijzingen getoond. Notebook 08 bouwt hierop voort met aanvullende meetdagen en hypothesen over de voederstrategieën. De studentenversies van 07 en 08 zijn nog niet vrijgegeven.
 
 ## Uitgevoerde controles op 25 november 2026
 

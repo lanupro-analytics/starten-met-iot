@@ -1,13 +1,17 @@
-# Docentcontrole met FILTER = '0'
+# Behandelingen: informatie voor de docent
 
-De sleutel is uitsluitend voor de docent. Deze hele map wordt uitgesloten bij het maken van de studentenbranch. HRE18 en LRE18 hebben elk drie hokken, HRE10 en LRE10 elk twee.
+`behandelingssleutel.csv` bevat de door de docent aangeleverde werkelijke toewijzing. HRE18 en LRE18 hebben elk drie hokken, HRE10 en LRE10 elk twee. De volledige map `docent/` wordt bij het maken van de studentenbranch weggelaten.
 
-Alle drie de beschrijvende verkenningen zijn opnieuw berekend met uitsluitend FILTER = '0'. De hoofdroute gebruikt de methode uit notebook 07, met grenzen op dag 1, 10, 18 en 27. De drie hoogste groeisnelheden tussen dag 10 en 18 horen bij hokken 1, 4 en 8. De drie laagste bij 3, 6 en 7. Dat zijn alle zes correcte HRE18- en LRE18-labels.
+## Interpretatie van de voorbeeldoplossing
 
-De overige vier hokken worden voorlopig verdeeld op conversie vóór dag 10. Met deze filtering levert dezelfde regel ook daarvoor de juiste labels op: alle tien voorbeeldhypothesen komen overeen met de sleutel. Zie controle_hypothesen.csv. De regel is niet aangepast om de labels te laten kloppen. De filtering volgt de kwaliteitscodes van de bronverwerking.
+Notebook 08 berekent de hypothesen uitsluitend uit meetgegevens met `FILTER = '0'`, zonder deze sleutel te lezen. De hoofdroute vergelijkt groei tussen dag 10 en 18. De drie hoogste waarden horen bij hokken 1, 4 en 8, de drie laagste bij 3, 6 en 7. Dit zijn de correcte HRE18- en LRE18-groepen. De overige vier hokken worden voorlopig verdeeld op conversie vóór dag 10. Met de huidige gegevens en filtering komen alle tien voorbeeldhypothesen overeen met de sleutel.
 
-Dit succes is geen onafhankelijke validatie. Bij de alternatieve trendlijn door dagmedianen (poging 2) wisselen hok 1 en hok 9 aan de bovengrens van plaats. De zes uitersten zijn dus niet volledig robuust voor de methode. De vierdaagse vensters (poging 3) geven geen eenduidig patroon dat alle voerwissels identificeert. De zekerheid bij de vroege groepen blijft laag. Er zijn geen nieuwe vensters gezocht om de sleutel passend te maken.
+Deze overeenkomst is geen onafhankelijke validatie. Een aanvullende controle met trendlijnen door de dagmedianen verwisselde hok 1 en hok 9 aan de bovengrens. Kortere vensters rond de schakeldagen leverden geen eenduidige herkenning van alle voerwissels. De voorlopige labels en onzekerheden in de notebook moeten daarom samen worden beoordeeld. De vroege groepen behouden een lage zekerheid.
 
-Notebook 07 is na filtering volledig uitgevoerd voor beide rollen. Notebook 08 is vanaf de eerder via de API verkregen volledige database opnieuw geanalyseerd. De nieuwe beginsituatie, grafieken, tabellen, advies en snapshot zijn gecontroleerd. Bronbestanden en transport blijven ongewijzigd. De methodenaam is dagmediaan_lineair_filter0_07_v2. Oude beginsituaties worden geweigerd en moeten eerst afzonderlijk gearchiveerd worden.
+De actuele berekeningen, figuren en export van de hypothesen worden door notebook 08 gemaakt. De eerdere losse verkenningsscripts en exports zijn daarvoor niet nodig. Hun historische versies blijven beschikbaar in Git.
 
-De oorspronkelijke bronkolom TREAT bevat nog codes A–D. De analyse selecteert deze niet. Voor een volledig blinde studentenpublicatie moeten die bestaande codes apart worden geneutraliseerd, inclusief actualisering van broncontrolesommen. Dit is geen onderdeel van de filterwijziging.
+## Uitvoering en vrijgave
+
+De [rekenmethode](../../documentatie/rekenmethode_07.md) beschrijft de filtering en berekening. De controlehandleidingen voor [07](../../documentatie/notebook_07_controleren.md) en [08](../../documentatie/notebook_08_controleren.md) beschrijven uitvoering, controles en herhaling. Oude beginsituaties zonder de verplichte filtering mogen niet met de huidige methode worden gecombineerd.
+
+De oorspronkelijke bronkolom `TREAT` bevat nog codes A–D. De analyse selecteert deze niet. Voor een volledig blinde studentenpublicatie moeten die bestaande codes apart worden geneutraliseerd, inclusief actualisering van broncontrolesommen. Alleen het weglaten van de docentmap maakt de bronbestanden niet blind.

@@ -52,9 +52,8 @@ Technische referenties: [openpyxl read-only mode](https://openpyxl.readthedocs.i
 
 ## Uitgevoerde verificatie
 
-Op 25 november 2026 is de volledige ketenproef geslaagd voor beide rollen, met alle 139.146 aanvullende records en 365.823 records in elke analysedatabase. Herhaalde Excel- en API-import voegden nul records toe. Alle referentiewaarden klopten en de vijf bestanden van beginsituatie_07 bleven byte voor byte behouden. De vier importtests en de notebookcontrole slaagden. Die eerste versie is daarna uitgebreid met de fasevergelijking. De voorbeeldsnapshot is ongeveer 52 MB.
+Op 25 november 2026 is de volledige ketenproef voor beide rollen uitgevoerd met 139.146 aanvullende records en 365.823 records in elke analysedatabase. Herhaalde Excel- en API-import voegden nul records toe. De beginsituatie bleef behouden. De voorbeeldsnapshot is ongeveer 52 MB.
 
+Na invoering van verplicht `FILTER = '0'` is 07 opnieuw volledig voor beide rollen uitgevoerd. Het analysegedeelte van 08 is opnieuw uitgevoerd vanaf de volledige API-snapshot met die nieuwe beginsituatie. Figuren, fasetabellen, hypothesen, export en snapshot zijn herberekend. Deze hercontrole herhaalt geen netwerkoverdracht. De ongewijzigde transportcellen behouden hun eerder gecontroleerde uitvoer.
 
-De herziene analyse is opnieuw vanaf de bewaarde volledige API-database uitgevoerd, inclusief de controle van de beginsituatie, figuren, faseberekeningen, inleverbestanden en snapshot. Deze hercontrole herhaalt geen MQTT- of HTTPS-overdracht. De transportcode is ongewijzigd. De tijdelijke studentenversie bevat nu 76 cellen en verwijdert de negen oplossingscellen en alle uitvoer. Ook de gram-naar-kilogramomrekening van grafieklijnen en assen is gecontroleerd. De docentnotebook bevat 85 cellen.
-
-Na invoering van verplicht FILTER = '0' is 07 voor beide rollen volledig uitgevoerd. Het analysegedeelte van 08 is opnieuw uitgevoerd vanaf de volledige API-snapshot, met de nieuw berekende beginsituatie uit 07. Alle figuren, faseberekeningen en exports zijn herberekend. De ongewijzigde transportcellen behouden hun eerder gecontroleerde uitvoer.
+De selectie-, reken-, import- en notebookcontroles slagen. De eenheidsomrekening van grafieklijnen en assen is gecontroleerd. De docentnotebook bevat 85 cellen. De tijdelijke studentenversie bevat 76 cellen, zonder de negen oplossingscellen en zonder bewaarde uitvoer. Er is geen studentenbranch bijgewerkt.
