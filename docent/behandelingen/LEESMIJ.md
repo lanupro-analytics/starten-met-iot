@@ -6,9 +6,9 @@
 
 Notebook 08 berekent de hypothesen uitsluitend uit meetgegevens met `FILTER = '0'`, zonder deze sleutel te lezen. De hoofdroute vergelijkt groei tussen dag 10 en 18. De drie hoogste waarden horen bij hokken 1, 4 en 8, de drie laagste bij 3, 6 en 7. Dit zijn de correcte HRE18- en LRE18-groepen. De overige vier hokken worden voorlopig verdeeld op conversie vóór dag 10. Met de huidige gegevens en filtering komen alle tien voorbeeldhypothesen overeen met de sleutel.
 
-Deze overeenkomst is geen onafhankelijke validatie. Een aanvullende controle met trendlijnen door de dagmedianen verwisselde hok 1 en hok 9 aan de bovengrens. Kortere vensters rond de schakeldagen leverden geen eenduidige herkenning van alle voerwissels. De voorlopige labels en onzekerheden in de notebook moeten daarom samen worden beoordeeld. De vroege groepen behouden een lage zekerheid.
+Deze overeenkomst is geen onafhankelijke validatie. Bij de eerdere vergelijking met kalendergrenzen verwisselde een aanvullende controle met trendlijnen door de dagmedianen hok 1 en hok 9 aan de bovengrens. Kortere vensters rond de schakeldagen leverden geen eenduidige herkenning van alle voerwissels. De voorlopige labels en onzekerheden in de notebook moeten daarom samen worden beoordeeld. De vroege groepen behouden een lage zekerheid.
 
-De actuele berekeningen, figuren en export van de hypothesen worden door notebook 08 gemaakt. De eerdere losse verkenningsscripts en exports zijn daarvoor niet nodig. Hun historische versies blijven beschikbaar in Git.
+De actuele fasegrenzen liggen op procestijd 1, 10, 18 en 27 vanaf 24 augustus 2023 om 12:00. Ook na deze verschuiving naar het eerste meetpunt komen alle tien voorbeeldhypothesen overeen met de sleutel. De actuele berekeningen, figuren en export van de hypothesen worden door notebook 08 gemaakt. De eerdere losse verkenningsscripts en exports zijn daarvoor niet nodig. Hun historische versies blijven beschikbaar in Git.
 
 ## Uitvoering en vrijgave
 

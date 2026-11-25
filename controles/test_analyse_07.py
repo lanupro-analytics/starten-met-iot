@@ -109,12 +109,45 @@ class Rekenen(unittest.TestCase):
         kilo = intervalfiguur(h,kilogram=True)
         conversie = intervalfiguur(h,'conversie',kilogram=True)
         try:
-            for a,b in zip(gram.axes[0].lines,kilo.axes[0].lines):
+            for a,b in zip(gram.axes[0].lines[:2],kilo.axes[0].lines[:2]):
                 np.testing.assert_allclose(b.get_ydata(),a.get_ydata()/1000)
             np.testing.assert_allclose(kilo.axes[0].get_ylim(),np.array(gram.axes[0].get_ylim())/1000)
             np.testing.assert_allclose(conversie.axes[0].lines[0].get_ydata(),h.voederconversie)
             self.assertEqual(kilo.axes[0].get_ylabel(),'kg per dier per dag')
         finally:
             for f in (gram,kilo,conversie): plt.close(f)
+
+    def test_procestijd_bewaart_uren_en_minuten(self):
+        from figuren_07 import procestijd
+        start=pd.Timestamp('2023-08-24 12:00:00')
+        tijd=pd.Series([start,start+pd.Timedelta(days=1,hours=12,minutes=30)])
+        self.assertAlmostEqual(procestijd(tijd,start).iloc[0],0)
+        self.assertAlmostEqual(procestijd(tijd,start).iloc[1],1+12.5/24)
+        # Een latere selectie krijgt geen nieuw nulpunt.
+        self.assertAlmostEqual(procestijd(tijd.iloc[1:],start).iloc[0],1+12.5/24)
+
+    def test_intervalposities_en_wissellijnen(self):
+        import matplotlib.pyplot as plt
+        import numpy as np
+        from figuren_07 import intervalfiguur,procestijd,PROCESSTART
+        h=vat_hokken_samen(bereken_intervallen(self.dag,self.voer,self.pop,self.grenzen))
+        f=intervalfiguur(h,start=PROCESSTART)
+        try:
+            verwacht=(procestijd(h.vanaf,PROCESSTART)+procestijd(h.tot,PROCESSTART))/2
+            np.testing.assert_allclose(f.axes[0].lines[0].get_xdata(),verwacht)
+            for lijn,dag in zip(f.axes[0].lines[-2:],(10,18)):
+                np.testing.assert_allclose(lijn.get_xdata(),[dag,dag])
+            self.assertIn(18,f.axes[0].get_xticks())
+        finally: plt.close(f)
+
+    def test_dekking_volgt_24_uur_vanaf_intervalstart(self):
+        origineel=bereken_intervallen(self.dag,self.voer,self.pop,self.grenzen)
+        verschuiving=pd.Timedelta(hours=12)
+        dag=self.dag.copy();voer=self.voer.copy()
+        dag['tijd']+=verschuiving;voer['tijd']+=verschuiving
+        if 'einde' in voer: voer['einde']+=verschuiving
+        nieuw=bereken_intervallen(dag,voer,self.pop,[pd.Timestamp(x)+verschuiving for x in self.grenzen])
+        for kolom in ('voederdagen','voeder_kg','groei_kg','bruikbaar','reden'):
+            pd.testing.assert_series_equal(origineel[kolom],nieuw[kolom])
 
 if __name__=='__main__': unittest.main(verbosity=2)

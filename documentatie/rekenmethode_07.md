@@ -72,3 +72,11 @@ De drie hoofdfiguren en `07_analysecontrole.json` worden daarnaast automatisch g
 Bij het later inlezen van de CSV-bestanden blijven `dier_id` en `hok` expliciet tekst (`dtype=str` voor deze kolommen). Tijden worden met microseconden geëxporteerd, zodat ook een mediane waarnemingstijd tussen twee seconden behouden blijft. Numerieke tabellen gebruiken twaalf significante cijfers. Vergelijk herberekende floats met een verklaarde tolerantie, niet als exacte binaire waarden.
 
 De filterversie heet `dagmediaan_lineair_filter0_07_v2`. Archiveer een oudere beginsituatie en voer 07 opnieuw uit voordat je met 08 verdergaat. De oude beginsituatie wordt niet overschreven.
+
+## Procestijd op de figuren
+
+Procestijd is `(tijdstip - eerste meetpunt) / 24 uur`. Het gezamenlijke eerste meetpunt van beide oorspronkelijke bronnen ligt op 24 augustus 2023 om 12:00. Uren, minuten en seconden blijven als een fractie van een dag behouden. De notebooks bepalen het nulpunt uit de brongegevens vóór filtering. Latere aanvullingen verplaatsen dit nulpunt niet.
+
+Alle tijdfiguren hebben een as in dagen en verticale stippellijnen op dag 10 en 18. Een dagelijkse hokwaarde staat op de mediane tijd van de gebruikte dierdaggewichten. Ontbrekende dagen blijven gaten in de lijn. Intervalwaarden staan op het midden van het interval, met een horizontaal lijntje dat de duur aangeeft. De oorspronkelijke kalendergrenzen van de basisanalyse blijven behouden. De spreidingsgrafiek van groei tegenover conversie heeft geen tijdas.
+
+De fasevergelijking in 08 gebruikt grenzen op procestijd 1, 10, 18 en 27, telkens om 12:00. De voederdekking wordt dan gecontroleerd in blokken van 24 uur vanaf de intervalstart. Voor middernachtgrenzen is dit gelijk aan de bestaande kalenderdagcontrole. Dag 10 en 18 zijn de afgesproken wisselmomenten in procestijd, geen uit meetgegevens bewezen feitelijke wisseluren.

@@ -34,7 +34,7 @@ Controlewaarden:
 
 Behandelingstoewijzing blijft een hypothese, maar elke student kiest voor elk van de tien hokken één strategie: HRE10, HRE18, LRE10 of LRE18. De bekende aantallen zijn respectievelijk twee, drie, twee en drie. Onzekerheid en alternatieven worden apart toegelicht. De bedrijfskeuze gebruikt groei, opname en conversie samen. Gezondheid, kosten en onzekerheid in de toewijzing verhinderen een bewezen economisch optimum.
 
-Een aanvullende fasetabel gebruikt dag 1–10, 10–18 en 18–27, gerekend vanaf 24 augustus 2023 om 00:00. De methode en oorspronkelijke bronperiode blijven dezelfde als in 07. De grafieken en fasetabel tonen kg per dier per dag. De oorspronkelijke gramkolommen blijven behouden. Dag 10–18 is gekozen op basis van het voederontwerp. De rangorde van groei biedt een eerste hypothese, geen algemeen geldige classificatieregel. Opname, conversie, dekking en veranderingen over de tijd nuanceren die hypothese. De lysineberekening op slide 29 van de instructiepresentatie is uitsluitend facultatief.
+Een aanvullende fasetabel gebruikt dag 1–10, 10–18 en 18–27, gerekend vanaf 24 augustus 2023 om 12:00. De methode en oorspronkelijke bronperiode blijven dezelfde als in 07. De grafieken en fasetabel tonen kg per dier per dag. De oorspronkelijke gramkolommen blijven behouden. Dag 10–18 is gekozen op basis van het voederontwerp. De rangorde van groei biedt een eerste hypothese, geen algemeen geldige classificatieregel. Opname, conversie, dekking en veranderingen over de tijd nuanceren die hypothese. De lysineberekening op slide 29 van de instructiepresentatie is uitsluitend facultatief.
 
 ## Automatische inlevering
 
@@ -56,4 +56,6 @@ Op 25 november 2026 is de volledige ketenproef voor beide rollen uitgevoerd met 
 
 Na invoering van verplicht `FILTER = '0'` is 07 opnieuw volledig voor beide rollen uitgevoerd. Het analysegedeelte van 08 is opnieuw uitgevoerd vanaf de volledige API-snapshot met die nieuwe beginsituatie. Figuren, fasetabellen, hypothesen, export en snapshot zijn herberekend. Deze hercontrole herhaalt geen netwerkoverdracht. De ongewijzigde transportcellen behouden hun eerder gecontroleerde uitvoer.
 
-De selectie-, reken-, import- en notebookcontroles slagen. De eenheidsomrekening van grafieklijnen en assen is gecontroleerd. De docentnotebook bevat 85 cellen. De tijdelijke studentenversie bevat 76 cellen, zonder de negen oplossingscellen en zonder bewaarde uitvoer. Er is geen studentenbranch bijgewerkt.
+De selectie-, reken-, import- en notebookcontroles slagen. De eenheidsomrekening van grafieklijnen en assen is gecontroleerd. De docentnotebook bevat 87 cellen. De tijdelijke studentenversie bevat 78 cellen, zonder de negen oplossingscellen en zonder bewaarde uitvoer. Er is geen studentenbranch bijgewerkt.
+
+De tijdassen gebruiken procestijd vanaf het gezamenlijke eerste meetpunt. De fasegrenzen op dag 10 en 18 liggen daarmee twaalf uur later dan bij de eerdere kalenderstart. De faseberekeningen en bijbehorende hypothesen worden opnieuw uitgevoerd. De bewaarde kalenderintervallen uit 07 blijven ongewijzigd.

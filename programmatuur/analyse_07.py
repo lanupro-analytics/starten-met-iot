@@ -126,8 +126,8 @@ def bereken_intervallen(dag,voer,pop,grenzen,max_uren=48):
     grenzen=pd.DatetimeIndex(pd.to_datetime(grenzen))
     if len(grenzen)<2 or not grenzen.is_monotonic_increasing or grenzen.has_duplicates:
         raise ValueError('Gebruik minstens twee strikt oplopende grenzen.')
-    if any(t!=t.normalize() for t in grenzen):
-        raise ValueError('Gebruik middernachtgrenzen voor de kalenderdagcontrole.')
+    if any((b-a) % pd.Timedelta(days=1) != pd.Timedelta(0) for a,b in zip(grenzen[:-1],grenzen[1:])):
+        raise ValueError('Gebruik intervallen van een geheel aantal perioden van 24 uur.')
     if not math.isfinite(max_uren) or max_uren<=0: raise ValueError('Ongeldige maximale gewichtsafstand.')
     rijen=[]
     for nr,(start,eind) in enumerate(zip(grenzen[:-1],grenzen[1:]),1):
@@ -139,7 +139,7 @@ def bereken_intervallen(dag,voer,pop,grenzen,max_uren=48):
             redenen=[]
             if begin is None: redenen.append('begin_'+rb)
             if einde is None: redenen.append('eind_'+re)
-            voer_dagen=f.tijd.dt.normalize().nunique()
+            voer_dagen=((f.tijd-start) // pd.Timedelta(days=1)).nunique()
             if voer_dagen!=dagen: redenen.append('voederdagen_ontbreken')
             groei=None if begin is None or einde is None else einde-begin
             if groei is not None and groei<=0: redenen.append('geen_positieve_groei')

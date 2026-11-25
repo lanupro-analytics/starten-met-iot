@@ -2,7 +2,7 @@
 
 ## Inhoud
 
-De docentversie bevat 79 cellen met uitgevoerde voorbeeldoutput, vijf tekstvragen, een verplichte eigen hok-/intervalselectie en twee facultatieve verkenningen. De facultatieve opdrachten gaan over kwartielen van diergewichten binnen een hok en een spreidingsdiagram van groei tegenover voederconversie. Ze wijzigen de basisberekening niet.
+De docentversie bevat 81 cellen met uitgevoerde voorbeeldoutput, vijf tekstvragen, een verplichte eigen hok-/intervalselectie en twee facultatieve verkenningen. De facultatieve opdrachten gaan over kwartielen van diergewichten binnen een hok en een spreidingsdiagram van groei tegenover voederconversie. Ze wijzigen de basisberekening niet.
 
 De hoofdroute leest de analysedatabase uit 06, controleert de inhoud, selecteert en koppelt dieren, bouwt daggewichten, werkt één interval uit en maakt overzichten voor alle tien hokken. Drie hoofdfiguren tonen gewichtsverloop, gemiddelde groei en voederopname, en voederconversie. De notebook bewaart automatisch een vaste beginsituatie en `07_analysecontrole.json`.
 
@@ -43,3 +43,5 @@ python controles/kernelproef_07.py
 Controleer vooral of de uitleg over dagmedianen, interpolatie en dezelfde dierselectie voor teller en noemer voldoende duidelijk is voor de groep. Controleer dat uitsluitend FILTER = '0' wordt behouden en de nadruk op uitsluitingen in het eerste interval. De methode maakt beperkingen zichtbaar, maar vervangt geen biologische validatie van alle bronvlaggen.
 
 Voor de latere studentenversie kan gericht `python hulpmiddelen/maak_studentenversies.py --nummer 7` worden gebruikt. Dit verandert geen branches. De publicatiestap blijft afzonderlijk. In deze ontwikkelronde blijven `main`, `studentenversie` en notebooks 00–06 ongewijzigd.
+
+De tijdfiguren zijn opnieuw uitgevoerd voor beide rollen met procestijd en markeringen op dag 10 en 18. Tests controleren ook de omzetting van uren en minuten, de intervalposities en de gelijkwaardigheid van de dekking bij verschoven 24-uursperioden.
