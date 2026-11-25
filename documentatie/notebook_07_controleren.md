@@ -2,7 +2,7 @@
 
 ## Inhoud
 
-De docentversie bevat 77 cellen met uitgevoerde voorbeeldoutput, vijf tekstvragen, een verplichte eigen hok-/intervalselectie en twee facultatieve verkenningen. De facultatieve opdrachten gaan over kwartielen van diergewichten binnen een hok en een spreidingsdiagram van groei tegenover voederconversie. Ze wijzigen de basisberekening niet.
+De docentversie bevat 79 cellen met uitgevoerde voorbeeldoutput, vijf tekstvragen, een verplichte eigen hok-/intervalselectie en twee facultatieve verkenningen. De facultatieve opdrachten gaan over kwartielen van diergewichten binnen een hok en een spreidingsdiagram van groei tegenover voederconversie. Ze wijzigen de basisberekening niet.
 
 De hoofdroute leest de analysedatabase uit 06, controleert de inhoud, selecteert en koppelt dieren, bouwt daggewichten, werkt één interval uit en maakt overzichten voor alle tien hokken. Drie hoofdfiguren tonen gewichtsverloop, gemiddelde groei en voederopname, en voederconversie. De notebook bewaart automatisch een vaste beginsituatie en `07_analysecontrole.json`.
 
@@ -17,7 +17,7 @@ De [rekenmethode](rekenmethode_07.md) legt de gekozen regels, tijdsgrenzen en be
 - Een figuurtest bewaakt dat de gemeenschappelijke assen ook de hoogste waarde in een later hok tonen.
 - Het volledige notebook wordt voor zowel de gewichtsrol als de voederopnamerol uitgevoerd met alle 226.677 basisrecords in een tijdelijke SQLite-database in het formaat van notebook 06.
 - De kernelproef reconstrueert die testdatabase met de bestaande bron-naar-JSON-omzetter en dezelfde hokmetadata. Dit is geen nieuwe API- of MQTT-netwerkproef. De netwerkroute is bij 06 afzonderlijk getest.
-- Beide uitvoeringen leveren 101 gekoppelde dieren op en respectievelijk 77, 98, 98 en 98 bruikbare dierintervallen. De eigen hokopdracht en het automatische controlebestand worden gecontroleerd.
+- Beide uitvoeringen leveren 101 gekoppelde dieren op en respectievelijk 72, 98, 98 en 98 bruikbare dierintervallen. De eigen hokopdracht en het automatische controlebestand worden gecontroleerd.
 - De SHA-256 van het analysebestand wordt vóór en na de volledige uitvoering vergeleken. De database blijft ongewijzigd.
 - Het opnieuw uitvoeren met de andere rol gebruikt dezelfde bewaarde beginsituatie en controleert daarmee ook behoud bij herhaling.
 - Een later toegevoegd testrecord buiten de basisperiode verandert de uitkomsten van de vaste basisperiode niet.
@@ -40,6 +40,6 @@ python controles/kernelproef_07.py
 
 ## Handmatige beoordeling
 
-Controleer vooral of de uitleg over dagmedianen, interpolatie en dezelfde dierselectie voor teller en noemer voldoende duidelijk is voor de groep. Beoordeel de keuze om flagged-records te behouden en de nadruk op uitsluitingen in het eerste interval. De methode maakt beperkingen zichtbaar, maar vervangt geen biologische validatie van alle bronvlaggen.
+Controleer vooral of de uitleg over dagmedianen, interpolatie en dezelfde dierselectie voor teller en noemer voldoende duidelijk is voor de groep. Controleer dat uitsluitend FILTER = '0' wordt behouden en de nadruk op uitsluitingen in het eerste interval. De methode maakt beperkingen zichtbaar, maar vervangt geen biologische validatie van alle bronvlaggen.
 
 Voor de latere studentenversie kan gericht `python hulpmiddelen/maak_studentenversies.py --nummer 7` worden gebruikt. Dit verandert geen branches. De publicatiestap blijft afzonderlijk. In deze ontwikkelronde blijven `main`, `studentenversie` en notebooks 00–06 ongewijzigd.

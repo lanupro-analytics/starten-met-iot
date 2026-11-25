@@ -26,10 +26,11 @@ De periodetabel berekent basis (25 augustus–20 september), aanvulling (21 sept
 
 Controlewaarden:
 
-- Bruikbare dieren in de zeven intervallen: 77, 98, 98, 98, 86, 98, 77.
-- Voor hokken 1 en 2 ontbreekt in de aanvulling en gehele periode een omsloten eindgewicht. Geen conversie berekenen of extrapoleren.
-- Hok 4, aanvulling: tien dieren, ongeveer 772,503 g groei/dier/dag, 1.046,829 g voeder/dier/dag en conversie 1,355112.
-- Hok 9, aanvulling: tien dieren, ongeveer 679,776 g groei/dier/dag, 1.031,743 g voeder/dier/dag en conversie 1,517768.
+- Bruikbare dieren in de zeven intervallen: 72, 98, 98, 98, 88, 98, 62.
+- Hokken 1 en 2 missen een omsloten eindgewicht voor de aanvulling.
+- Hok 4, aanvulling: 10 dieren, 0.751580 kg groei/dier/dag, 1.039764 kg voeder/dier/dag, conversie 1.383438.
+- Hok 9, aanvulling: 10 dieren, 0.686832 kg groei/dier/dag, 1.023514 kg voeder/dier/dag, conversie 1.490196.
+
 
 Behandelingstoewijzing blijft een hypothese, maar elke student kiest voor elk van de tien hokken één strategie: HRE10, HRE18, LRE10 of LRE18. De bekende aantallen zijn respectievelijk twee, drie, twee en drie. Onzekerheid en alternatieven worden apart toegelicht. De bedrijfskeuze gebruikt groei, opname en conversie samen. Gezondheid, kosten en onzekerheid in de toewijzing verhinderen een bewezen economisch optimum.
 
@@ -54,4 +55,6 @@ Technische referenties: [openpyxl read-only mode](https://openpyxl.readthedocs.i
 Op 25 november 2026 is de volledige ketenproef geslaagd voor beide rollen, met alle 139.146 aanvullende records en 365.823 records in elke analysedatabase. Herhaalde Excel- en API-import voegden nul records toe. Alle referentiewaarden klopten en de vijf bestanden van beginsituatie_07 bleven byte voor byte behouden. De vier importtests en de notebookcontrole slaagden. Die eerste versie is daarna uitgebreid met de fasevergelijking. De voorbeeldsnapshot is ongeveer 52 MB.
 
 
-De herziene analyse is opnieuw vanaf de bewaarde volledige API-database uitgevoerd, inclusief de controle van de beginsituatie, figuren, faseberekeningen, inleverbestanden en snapshot. Deze hercontrole herhaalt geen MQTT- of HTTPS-overdracht. De transportcode is ongewijzigd. De tijdelijke studentenversie bevat nu 75 cellen en verwijdert de negen oplossingscellen en alle uitvoer. Ook de gram-naar-kilogramomrekening van grafieklijnen en assen is gecontroleerd. De docentnotebook bevat 84 cellen.
+De herziene analyse is opnieuw vanaf de bewaarde volledige API-database uitgevoerd, inclusief de controle van de beginsituatie, figuren, faseberekeningen, inleverbestanden en snapshot. Deze hercontrole herhaalt geen MQTT- of HTTPS-overdracht. De transportcode is ongewijzigd. De tijdelijke studentenversie bevat nu 76 cellen en verwijdert de negen oplossingscellen en alle uitvoer. Ook de gram-naar-kilogramomrekening van grafieklijnen en assen is gecontroleerd. De docentnotebook bevat 85 cellen.
+
+Na invoering van verplicht FILTER = '0' is 07 voor beide rollen volledig uitgevoerd. Het analysegedeelte van 08 is opnieuw uitgevoerd vanaf de volledige API-snapshot, met de nieuw berekende beginsituatie uit 07. Alle figuren, faseberekeningen en exports zijn herberekend. De ongewijzigde transportcellen behouden hun eerder gecontroleerde uitvoer.

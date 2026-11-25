@@ -7,5 +7,5 @@ hok,behandeling_bron,voederstrategie_waar,hoknummer,voederstrategie_hypothese,co
 6,LP18,LRE18,6,LRE18,True
 7,LP18,LRE18,7,LRE18,True
 8,HP18,HRE18,8,HRE18,True
-9,HP10,HRE10,9,LRE10,False
-10,LP10,LRE10,10,HRE10,False
+9,HP10,HRE10,9,HRE10,True
+10,LP10,LRE10,10,LRE10,True

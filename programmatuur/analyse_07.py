@@ -9,7 +9,7 @@ import sqlite3
 import numpy as np
 import pandas as pd
 
-METHODE = 'dagmediaan_lineair_07_v1'
+METHODE = 'dagmediaan_lineair_filter0_07_v2'
 STANDAARD_GRENZEN = ['2023-08-25','2023-09-01','2023-09-08','2023-09-15','2023-09-20']
 
 
@@ -54,7 +54,7 @@ def lees_analyse(pad):
     return data,manifest
 
 
-def selecteer(data, vanaf='2023-08-24', tot='2023-09-21', streng=False):
+def selecteer(data, vanaf='2023-08-24', tot='2023-09-21'):
     """Behoud bronrecords, maak een aparte selectie met een aflopende audit."""
     if data.duplicated(['bron','record_id']).any():
         raise ValueError('Dubbele bronidentificatie. Herstel de import, verwijder niet willekeurig rijen.')
@@ -95,7 +95,7 @@ def selecteer(data, vanaf='2023-08-24', tot='2023-09-21', streng=False):
     stap('Geldige tijd en waarde',d.tijd.notna()&d.einde.notna()&(d.einde>=d.tijd)&d.tijd.dt.strftime('%Y-%m-%d').eq(d.datum)&
          np.isfinite(d.waarde)&((d.bron.eq('asserva')&(d.waarde>0))|(d.bron.eq('schauer')&(d.waarde>=0))))
     stap('Oorspronkelijke gewichten',d.bron.eq('schauer')|d.herkomst.isin(['0','manualweighing','allocation']))
-    if streng: stap('Alleen ongemarkeerde records',d.vlag.eq('0'))
+    stap('FILTER gelijk aan tekst 0',d.vlag.eq('0'))
     return (d[d.bron=='asserva'].copy(),d[d.bron=='schauer'].copy(),pop,
             pd.DataFrame(audit),pd.DataFrame(uitgesloten,columns=['dier_id','reden']))
 

@@ -69,12 +69,20 @@ class Rekenen(unittest.TestCase):
                 rijen.append({'bron':bron,'meettype':rol,'eenheid':eenheid,'record_id':bron+dier,
                     'dier_id':dier,'hok':'2' if dier=='b' and bron=='schauer' else '1',
                     'datum':'2023-08-25','tijd':'2023-08-25T12:00:00','einde':'2023-08-25T12:00:01',
-                    'waarde':waarde,'foutcode':'no error','vlag':'flagged','herkomst':'0'})
+                    'waarde':waarde,'foutcode':'no error','vlag':'0','herkomst':'0'})
         d=pd.DataFrame(rijen)
         g,v,p,a,u=selecteer(d)
         self.assertEqual(list(p.dier_id),['a'])
         self.assertEqual(list(u.dier_id),['b'])
         self.assertEqual(v.iloc[0].waarde,0)
+        extra = d[d.dier_id.eq('a')].copy()
+        extra['record_id'] += '_uitgesloten'
+        extra['vlag'] = 'flagged'
+        extra['waarde'] = 99999
+        gg,vv,_,_,_ = selecteer(pd.concat([d,extra],ignore_index=True))
+        self.assertTrue(gg.vlag.eq('0').all() and vv.vlag.eq('0').all())
+        self.assertEqual(len(gg),len(g))
+        self.assertEqual(len(vv),len(v))
         with self.assertRaises(ValueError): selecteer(pd.concat([d,d.iloc[[0]]]))
         d.loc[0,'eenheid']='g'
         with self.assertRaises(ValueError): selecteer(d)

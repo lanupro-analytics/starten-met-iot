@@ -58,8 +58,8 @@ def main():
             nbformat.write(nb,uitvoer/f'07_uitgevoerd_{rol}.ipynb')
             verslag=json.loads((inlever/'07_analysecontrole.json').read_text())
             assert verslag['populatie']==101
-            assert verslag['bruikbare_dieren_per_interval']=={'1':77,'2':98,'3':98,'4':98}
-            assert abs(verslag['eigen_voederconversie']-1.165117)<.00001
+            assert verslag['bruikbare_dieren_per_interval']=={'1':72,'2':98,'3':98,'4':98}
+            assert abs(verslag['eigen_voederconversie']-1.263937795)<.00001
             assert hashlib.sha256((werk/'gegevens/werk/analyse_06.db').read_bytes()).hexdigest()==voor
             print('Volledig uitgevoerd en bron ongewijzigd:',rol,flush=True)
         shutil.copytree(inlever,uitvoer/'inlevering',dirs_exist_ok=True)

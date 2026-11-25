@@ -22,7 +22,7 @@ Selectiestappen:
 4. Geldige begin- en eindtijd, eindtijd niet vóór begintijd, datum gelijk aan de kalenderdatum van bezoekstart, eindige meetwaarde. Gewicht strikt positief, voer nul of positief.
 5. Voor gewicht alleen DATAORIGIN `0`, `allocation` of `manualweighing`. `imputed` en `exit` worden uitgesloten.
 
-`flagged` blijft in de hoofdroute behouden. De mediaan kan losse uitschieters dempen, maar is geen volledige kwaliteitsgarantie. Voeder bevat ook kwaliteitsvlaggen waarvan niet elk algoritme opnieuw wordt beoordeeld. De bestaande bronverwerking kan kennis van latere metingen bevatten. De oefening wordt daarom niet als een zuiver vooruitkijkende voorspelling gepresenteerd.
+Uitsluitend `FILTER = '0'` (tekst) is toegestaan. `flagged` en `errored` zijn eerder gemarkeerde uitschieters of fouten. Hun meetwaarden dragen niet bij aan analyses of figuren. De populatie wordt vóór deze numerieke kwaliteitsselectie vastgelegd, zodat uitgesloten metingen de noemer niet onzichtbaar verkleinen. Ontbrekende voederdagen worden niet als nulopname ingevuld.
 
 ## Tijd en gewichten
 
@@ -54,11 +54,12 @@ Het uitsluiten van niet-positieve groei kan de groepsverhouding gunstiger doen l
 
 - Oorspronkelijk: 80.028 gewichtsrecords en 146.649 voederrecords.
 - Expliciete herkenningsfouten: 7 gewicht, 80 voer.
-- Uitgesloten gewichtsherkomst: 1.112 imputed en 2 exit. Geselecteerd: 78.907 gewichtsrecords en 146.569 voederrecords.
-- Bruikbare dieren per interval: 77, 98, 98, 98. In het eerste interval hebben tien dieren geen positieve geschatte groei.
-- Dier 89728010, hok 3, 25 augustus tot 1 september: begin circa 6,955407 kg, einde 8,164418 kg, groei 1,209011 kg, voer 1,501 kg. Conversie circa 1,241511 kg/kg.
-- Hok 1 in het eerste interval: 10 van 11 dieren, 15,491 kg voer, circa 14,659290 kg groei, conversie circa 1,056736 kg/kg.
-- Hok 9 in het laatste interval: 10 van 10 dieren, 35,508 kg voer, circa 30,475876 kg groei, conversie circa 1,165118 kg/kg.
+- FILTER = '0': 71.115 gewichtsrecords en 74.690 voederrecords. Na de overige controles blijven 70.001 gewichtsrecords en 74.690 voederrecords over.
+- Bruikbare dieren per interval: 72, 98, 98, 98.
+- Dier 89728010, hok 3, eerste interval: groei 1.268328 kg, opname 1.459 kg, conversie 1.150333.
+- Hok 1, eerste interval: conversie 0.968261.
+- Hok 9, laatste interval: conversie 1.263938.
+
 
 Afgeronde tekstwaarden dienen voor uitleg. De opgeslagen tabellen bevatten meer precisie en vormen het vergelijkingspunt voor 08. De kwartielverkenning en het spreidingsdiagram zijn facultatief en wijzigen deze basis niet.
 
@@ -69,3 +70,5 @@ Afgeronde tekstwaarden dienen voor uitleg. De opgeslagen tabellen bevatten meer 
 De drie hoofdfiguren en `07_analysecontrole.json` worden daarnaast automatisch gemaakt. Bronwaarden en database blijven ongewijzigd. Een toekomstige analyse van aanvullende data krijgt een aparte resultaatset. Voor vergelijking over dezelfde vaste basisperiode moeten de populatie, bronselectie, grenzen en kwaliteitsregels gelijk blijven. De methode gebruikt geen later meetpunt buiten de vastgelegde basisselectie.
 
 Bij het later inlezen van de CSV-bestanden blijven `dier_id` en `hok` expliciet tekst (`dtype=str` voor deze kolommen). Tijden worden met microseconden geëxporteerd, zodat ook een mediane waarnemingstijd tussen twee seconden behouden blijft. Numerieke tabellen gebruiken twaalf significante cijfers. Vergelijk herberekende floats met een verklaarde tolerantie, niet als exacte binaire waarden.
+
+De filterversie heet `dagmediaan_lineair_filter0_07_v2`. Archiveer een oudere beginsituatie en voer 07 opnieuw uit voordat je met 08 verdergaat. De oude beginsituatie wordt niet overschreven.
