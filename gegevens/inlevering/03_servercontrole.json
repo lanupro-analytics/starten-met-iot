@@ -1,0 +1,11 @@
+{
+  "deelnemerscode": "andreas_camerlinck",
+  "branch": "student/andreas_camerlinck",
+  "getest_op_utc": "2026-11-25T23:24:41.687626+00:00",
+  "verbindingen": {
+    "mqtt_tls": "geslaagd",
+    "mqtt_heen_en_terug": "geslaagd",
+    "https": "geslaagd",
+    "api_aanmelding": "geslaagd"
+  }
+}
