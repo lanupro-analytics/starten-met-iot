@@ -20,14 +20,14 @@ Ga daarna verder met **[04 · Metingen publiceren met MQTT](notebooks/04_metinge
 
 Vervolg met **[05 · Metingen ontvangen en opslaan](notebooks/05_metingen_ontvangen_en_opslaan.ipynb)**. Je richt de ontvanger op je eigen server in, voegt de stroom van een andere gebruiker toe en controleert de volledige databases.
 
-De docentversie van **[06 · Gegevens opvragen via een API](docent/notebooks/06_gegevens_opvragen_via_een_api.ipynb)** is beschikbaar op de docentbranch `jrndgrt`, met de [controlehandleiding](documentatie/notebook_06_controleren.md). De studentenversie van 06 is nog niet vrijgegeven. Notebooks 07–08 zijn nog niet beschikbaar. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
+De docentversies van **[06 · Gegevens opvragen via een API](docent/notebooks/06_gegevens_opvragen_via_een_api.ipynb)** en **[07 · Groei, voederopname en voederconversie onderzoeken](docent/notebooks/07_voederconversie_berekenen_en_visualiseren.ipynb)** zijn beschikbaar op de docentbranch `jrndgrt`, met de [controlehandleiding voor 06](documentatie/notebook_06_controleren.md) en [voor 07](documentatie/notebook_07_controleren.md). De studentenversies van 06 en 07 zijn nog niet vrijgegeven. Notebook 08 is nog niet beschikbaar. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
 
 ## Bestanden
 
 | Map | Inhoud |
 |---|---|
 | `notebooks/` | Ongewijzigde introductie 00 en studentenversies 01–05 |
-| `docent/notebooks/` | Volledig uitgewerkte docentversies 01–06 |
+| `docent/notebooks/` | Volledig uitgewerkte docentversies 01–07 |
 | `hulpmiddelen/` | Scripts voor startdatabanken en studentenversies |
 | `gegevens/origineel/` | Vrijgegeven lesdatabanken met de eerste vier weken |
 | `gegevens/oefeningen/` | Vier fictieve oefenrijen in Excel en CSV |
