@@ -75,7 +75,7 @@ def intervalfiguur(hok,soort='groei_voeder',kilogram=False,start=PROCESSTART):
         else:
             ax.plot(x,d.voederconversie,'o-',color='#6a4c93')
             for i,r in enumerate(d.itertuples()):
-                if pd.notna(r.voederconversie): ax.annotate(f'n={r.dieren_bruikbaar}/{r.dieren_populatie}',(x.iloc[i],r.voederconversie),xytext=(0,8),textcoords='offset points',ha='center',fontsize=8)
+                if pd.notna(r.voederconversie): ax.annotate(f'{r.dieren_bruikbaar}/{r.dieren_populatie} dieren',(x.iloc[i],r.voederconversie),xytext=(0,8),textcoords='offset points',ha='center',fontsize=8)
         waarden=[(d.groei_g_dier_dag/factor,'#176a89'),(d.voeder_g_dier_dag/factor,'#c06b24')] if soort=='groei_voeder' else [(d.voederconversie,'#6a4c93')]
         for y,kleur in waarden: ax.hlines(y,begin,einde,color=kleur,alpha=.35,linewidth=2)
         procesas(ax,procestijd(hok.vanaf.min(),start),procestijd(hok.tot.max(),start))

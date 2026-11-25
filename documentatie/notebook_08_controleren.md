@@ -38,7 +38,7 @@ Een aanvullende fasetabel gebruikt dag 1–10, 10–18 en 18–27, gerekend vana
 
 ## Automatische inlevering
 
-`gegevens/inlevering/` krijgt vijf PNG-figuren, `08_eigen_broncontrole.json`, `08_eindcontrole.json`, `08_analysedatabase.db.gz` en `resultaten_08/` met CSV-tabellen, een tweekolomstabel `hok_voederstrategie.csv`, afzonderlijke hokargumenten in `hokhypothesen.csv` en `bedrijfsadvies.txt`. De snapshot gebruikt SQLite-back-up, integriteitscontrole en gzip. Een bestand boven 95 MB wordt niet als gewone Git-inlevering aanvaard. De oorspronkelijke analysedatabase blijft in de werkmap.
+`gegevens/inlevering/` krijgt zes PNG-figuren, `08_eigen_broncontrole.json`, `08_eindcontrole.json`, `08_analysedatabase.db.gz` en `resultaten_08/` met CSV-tabellen, een tweekolomstabel `hok_voederstrategie.csv`, afzonderlijke hokargumenten in `hokhypothesen.csv` en `bedrijfsadvies.txt`. De snapshot gebruikt SQLite-back-up, integriteitscontrole en gzip. Een bestand boven 95 MB wordt niet als gewone Git-inlevering aanvaard. De oorspronkelijke analysedatabase blijft in de werkmap.
 
 Een snapshot kan naar een aparte herstelmap worden uitgepakt met `gzip.open` en vervolgens met DB Browser of SQLite worden gelezen. Controleer eerst de SHA-256 uit `08_eindcontrole.json`. Vervang nooit ongemerkt de actuele werkdatabase met een oude snapshot.
 
@@ -56,6 +56,15 @@ Op 25 november 2026 is de volledige ketenproef voor beide rollen uitgevoerd met 
 
 Na invoering van verplicht `FILTER = '0'` is 07 opnieuw volledig voor beide rollen uitgevoerd. Het analysegedeelte van 08 is opnieuw uitgevoerd vanaf de volledige API-snapshot met die nieuwe beginsituatie. Figuren, fasetabellen, hypothesen, export en snapshot zijn herberekend. Deze hercontrole herhaalt geen netwerkoverdracht. De ongewijzigde transportcellen behouden hun eerder gecontroleerde uitvoer.
 
-De selectie-, reken-, import- en notebookcontroles slagen. De eenheidsomrekening van grafieklijnen en assen is gecontroleerd. De docentnotebook bevat 87 cellen. De tijdelijke studentenversie bevat 78 cellen, zonder de negen oplossingscellen en zonder bewaarde uitvoer. Er is geen studentenbranch bijgewerkt.
+De selectie-, reken-, import- en notebookcontroles slagen. De eenheidsomrekening van grafieklijnen en assen is gecontroleerd. De docentnotebook bevat 92 cellen. De tijdelijke studentenversie bevat 83 cellen, zonder de negen oplossingscellen en zonder bewaarde uitvoer. Er is geen studentenbranch bijgewerkt.
 
 De tijdassen gebruiken procestijd vanaf het gezamenlijke eerste meetpunt. De fasegrenzen op dag 10 en 18 liggen daarmee twaalf uur later dan bij de eerdere kalenderstart. De faseberekeningen en bijbehorende hypothesen worden opnieuw uitgevoerd. De bewaarde kalenderintervallen uit 07 blijven ongewijzigd.
+
+
+## Dierenaantallen en spreidingsgrafieken
+
+Een label `8/10 dieren` betekent acht bruikbare dieren van tien oorspronkelijk gekoppelde dieren. Het is geen sterftetelling. De faseanalyse toont per hok de dekking, de redenen en de betrokken diernummers. Bij dag 1–10 zijn 72 dieren bruikbaar. Van de 29 uitgesloten dieren hebben 22 een te groot gewichtsgat rond het begin en negen onvoldoende voederdekking. Twee dieren vallen onder beide redenen. Eén dier met ontbrekende voederdekking mist ook een omsloten eindgewicht.
+
+`08_groei_tegen_conversie.png` bevat vier panelen: dag 1–10, 10–18, 18–27 en gezamenlijk dag 1–27. De laatste periode wordt rechtstreeks berekend met dezelfde dierselectie voor groei en voeder. Het is niet de verlengde periode tot oktober. De figuur gebruikt vaste hokkleuren, gedeelde assen en geen behandelingssleutel of automatische clustering. De aantallen staan in een afzonderlijke tabel.
+
+De nieuwe cellen zijn uitgevoerd. De totaalconversies zijn per hok gecontroleerd tegenover de som van voederopname gedeeld door de som van groei van de bruikbare dieren. De tabellen worden bewaard als `groei_tegen_conversie.csv` en `uitsluitingen_voederfasen.csv`. De gewijzigde aantallabels zijn ook in de opgeslagen conversiefiguren vernieuwd.
