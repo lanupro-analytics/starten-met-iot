@@ -34,18 +34,19 @@ def gewichtsfiguur(dag):
     return fig
 
 
-def intervalfiguur(hok,soort='groei_voeder'):
+def intervalfiguur(hok,soort='groei_voeder',kilogram=False):
     if soort not in ('groei_voeder','conversie'): raise ValueError('Onbekend figuurtype.')
     hokken=hokvolgorde(hok.hok)
     titel='Gemiddelde groei en voederopname per interval' if soort=='groei_voeder' else 'Voederconversie per interval'
-    eenheid='g per dier per dag' if soort=='groei_voeder' else 'kg voeder / kg groei'
+    factor=1000 if kilogram else 1
+    eenheid=('kg per dier per dag' if kilogram else 'g per dier per dag') if soort=='groei_voeder' else 'kg voeder / kg groei'
     fig,assen=panelen(hokken,titel,eenheid)
     for h,ax in zip(hokken,assen):
         d=hok[hok.hok==h].sort_values('interval')
         x=range(len(d)); labels=[f'{a:%d/%m}–{b:%d/%m}' for a,b in zip(d.vanaf,d.tot)]
         if soort=='groei_voeder':
-            ax.plot(x,d.groei_g_dier_dag,'o-',color='#176a89',label='Groei')
-            ax.plot(x,d.voeder_g_dier_dag,'s--',color='#c06b24',label='Voederopname')
+            ax.plot(x,d.groei_g_dier_dag/factor,'o-',color='#176a89',label='Groei')
+            ax.plot(x,d.voeder_g_dier_dag/factor,'s--',color='#c06b24',label='Voederopname')
         else:
             ax.plot(x,d.voederconversie,'o-',color='#6a4c93')
             for i,r in enumerate(d.itertuples()):
@@ -53,7 +54,7 @@ def intervalfiguur(hok,soort='groei_voeder'):
         ax.set_xticks(list(x),labels,rotation=18,ha='right',fontsize=8)
         ax.set_xlabel('Interval (einddatum exclusief)')
     velden=['groei_g_dier_dag','voeder_g_dier_dag'] if soort=='groei_voeder' else ['voederconversie']
-    maximum=hok[velden].max().max()
+    maximum=hok[velden].max().max() / (factor if soort=='groei_voeder' else 1)
     assen[0].set_ylim(0,maximum*1.25 if pd.notna(maximum) and maximum>0 else 1)
     if soort=='groei_voeder': assen[0].legend(frameon=False,fontsize=9)
     return fig

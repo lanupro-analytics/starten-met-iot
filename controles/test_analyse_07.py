@@ -92,4 +92,21 @@ class Rekenen(unittest.TestCase):
         try: self.assertGreater(f.axes[0].get_ylim()[1],10)
         finally: plt.close(f)
 
+    def test_kilogramweergave_verandert_geen_conversie(self):
+        import matplotlib.pyplot as plt
+        from figuren_07 import intervalfiguur
+        import numpy as np
+        h = vat_hokken_samen(bereken_intervallen(self.dag,self.voer,self.pop,self.grenzen))
+        gram = intervalfiguur(h)
+        kilo = intervalfiguur(h,kilogram=True)
+        conversie = intervalfiguur(h,'conversie',kilogram=True)
+        try:
+            for a,b in zip(gram.axes[0].lines,kilo.axes[0].lines):
+                np.testing.assert_allclose(b.get_ydata(),a.get_ydata()/1000)
+            np.testing.assert_allclose(kilo.axes[0].get_ylim(),np.array(gram.axes[0].get_ylim())/1000)
+            np.testing.assert_allclose(conversie.axes[0].lines[0].get_ydata(),h.voederconversie)
+            self.assertEqual(kilo.axes[0].get_ylabel(),'kg per dier per dag')
+        finally:
+            for f in (gram,kilo,conversie): plt.close(f)
+
 if __name__=='__main__': unittest.main(verbosity=2)

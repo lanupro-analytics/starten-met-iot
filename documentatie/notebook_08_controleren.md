@@ -31,11 +31,13 @@ Controlewaarden:
 - Hok 4, aanvulling: tien dieren, ongeveer 772,503 g groei/dier/dag, 1.046,829 g voeder/dier/dag en conversie 1,355112.
 - Hok 9, aanvulling: tien dieren, ongeveer 679,776 g groei/dier/dag, 1.031,743 g voeder/dier/dag en conversie 1,517768.
 
-Behandelingstoewijzing blijft een hypothese. `onbeslist` is geldig met een inhoudelijke verklaring. Het uitgewerkte advies kiest een beperkte vervolgproef met `lager_kort`, niet een aangetoonde optimale strategie. De ontbrekende behandelingssleutel, gezondheid en prijzen verhinderen zo'n conclusie.
+Behandelingstoewijzing blijft een hypothese, maar elke student kiest voor elk van de tien hokken één strategie: HRE10, HRE18, LRE10 of LRE18. De bekende aantallen zijn respectievelijk twee, drie, twee en drie. Onzekerheid en alternatieven worden apart toegelicht. De bedrijfskeuze gebruikt groei, opname en conversie samen. Gezondheid, kosten en onzekerheid in de toewijzing verhinderen een bewezen economisch optimum.
+
+Een aanvullende fasetabel gebruikt dag 1–10, 10–18 en 18–27, gerekend vanaf 24 augustus 2023 om 00:00. De methode en oorspronkelijke bronperiode blijven dezelfde als in 07. De grafieken en fasetabel tonen kg per dier per dag. De oorspronkelijke gramkolommen blijven behouden. Dag 10–18 is gekozen op basis van het voederontwerp. De rangorde van groei biedt een eerste hypothese, geen algemeen geldige classificatieregel. Opname, conversie, dekking en veranderingen over de tijd nuanceren die hypothese. De lysineberekening op slide 29 van de instructiepresentatie is uitsluitend facultatief.
 
 ## Automatische inlevering
 
-`gegevens/inlevering/` krijgt drie PNG-figuren, `08_eigen_broncontrole.json`, `08_eindcontrole.json`, `08_analysedatabase.db.gz` en `resultaten_08/` met CSV-tabellen, hokhypothesen en advies. De snapshot gebruikt SQLite-back-up, integriteitscontrole en gzip. Een bestand boven 95 MB wordt niet als gewone Git-inlevering aanvaard. De oorspronkelijke analysedatabase blijft in de werkmap.
+`gegevens/inlevering/` krijgt vijf PNG-figuren, `08_eigen_broncontrole.json`, `08_eindcontrole.json`, `08_analysedatabase.db.gz` en `resultaten_08/` met CSV-tabellen, een tweekolomstabel `hok_voederstrategie.csv`, afzonderlijke hokargumenten in `hokhypothesen.csv` en `bedrijfsadvies.txt`. De snapshot gebruikt SQLite-back-up, integriteitscontrole en gzip. Een bestand boven 95 MB wordt niet als gewone Git-inlevering aanvaard. De oorspronkelijke analysedatabase blijft in de werkmap.
 
 Een snapshot kan naar een aparte herstelmap worden uitgepakt met `gzip.open` en vervolgens met DB Browser of SQLite worden gelezen. Controleer eerst de SHA-256 uit `08_eindcontrole.json`. Vervang nooit ongemerkt de actuele werkdatabase met een oude snapshot.
 
@@ -49,4 +51,7 @@ Technische referenties: [openpyxl read-only mode](https://openpyxl.readthedocs.i
 
 ## Uitgevoerde verificatie
 
-Op 25 november 2026 is de volledige ketenproef geslaagd voor beide rollen, met alle 139.146 aanvullende records en 365.823 records in elke analysedatabase. Herhaalde Excel- en API-import voegden nul records toe. Alle referentiewaarden klopten en de vijf bestanden van beginsituatie_07 bleven byte voor byte behouden. De vier importtests en de notebookcontrole slaagden. De tijdelijke studentenversie bevat 70 cellen, zonder de negen oplossingscellen en zonder bewaarde uitvoer. De docentnotebook bevat 79 cellen, waaronder 21 uitgevoerde codecellen. De voorbeeldsnapshot is ongeveer 52 MB.
+Op 25 november 2026 is de volledige ketenproef geslaagd voor beide rollen, met alle 139.146 aanvullende records en 365.823 records in elke analysedatabase. Herhaalde Excel- en API-import voegden nul records toe. Alle referentiewaarden klopten en de vijf bestanden van beginsituatie_07 bleven byte voor byte behouden. De vier importtests en de notebookcontrole slaagden. Die eerste versie is daarna uitgebreid met de fasevergelijking. De voorbeeldsnapshot is ongeveer 52 MB.
+
+
+De herziene analyse is opnieuw vanaf de bewaarde volledige API-database uitgevoerd, inclusief de controle van de beginsituatie, figuren, faseberekeningen, inleverbestanden en snapshot. Deze hercontrole herhaalt geen MQTT- of HTTPS-overdracht. De transportcode is ongewijzigd. De tijdelijke studentenversie bevat nu 75 cellen en verwijdert de negen oplossingscellen en alle uitvoer. Ook de gram-naar-kilogramomrekening van grafieklijnen en assen is gecontroleerd. De docentnotebook bevat 84 cellen.
