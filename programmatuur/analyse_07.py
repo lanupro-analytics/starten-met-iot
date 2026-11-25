@@ -9,7 +9,7 @@ import sqlite3
 import numpy as np
 import pandas as pd
 
-METHODE = 'dagmediaan_lineair_filter0_07_v2'
+METHODE = 'vijf_dichtste_filter0_07_v3'
 STANDAARD_GRENZEN = ['2023-08-25','2023-09-01','2023-09-08','2023-09-15','2023-09-20']
 
 
@@ -108,42 +108,42 @@ def daggewichten(gewichten):
              .sort_values(['dier_id','tijd']).reset_index(drop=True))
 
 
-def schat_gewicht(dagen, tijd, max_uren=48):
-    """Interpolatie tussen twee dagmedianen, geen extrapolatie of lange gaten."""
-    d=dagen.sort_values('tijd'); tijd=pd.Timestamp(tijd)
-    exact=d[d.tijd==tijd]
-    if len(exact): return float(exact.iloc[0].gewicht_kg),'exacte_dagmediaan',0.0
-    links=d[d.tijd<tijd]; rechts=d[d.tijd>tijd]
-    if links.empty or rechts.empty: return None,'gewicht_niet_omsloten',None
-    a=links.iloc[-1]; b=rechts.iloc[0]
-    uren=(b.tijd-a.tijd).total_seconds()/3600
-    if uren>max_uren: return None,'gewichtsgat_te_groot',uren
-    fractie=(tijd-a.tijd).total_seconds()/(b.tijd-a.tijd).total_seconds()
-    return float(a.gewicht_kg+fractie*(b.gewicht_kg-a.gewicht_kg)),'geschat',uren
+def schat_gewicht(metingen, tijd):
+    """Gemiddelde van vijf dichtstbijzijnde individuele gewichtsmetingen.
+
+    De maximale absolute tijdafstand wordt gerapporteerd, niet als uitsluitingsgrens
+    gebruikt. Gelijke afstanden krijgen de eerdere meting eerst.
+    """
+    tijd=pd.Timestamp(tijd)
+    if len(metingen)<5:
+        return None,'minder_dan_vijf_gewichten',None
+    d=metingen.sort_values('tijd',kind='stable').copy()
+    d['afstand']=(d.tijd-tijd).abs()
+    vijf=d.nsmallest(5,'afstand',keep='first')
+    return float(vijf.waarde.mean()),'gemiddelde_vijf',float(vijf.afstand.max()/pd.Timedelta(hours=1))
 
 
-def bereken_intervallen(dag,voer,pop,grenzen,max_uren=48):
+def bereken_intervallen(gewichten,voer,pop,grenzen):
     grenzen=pd.DatetimeIndex(pd.to_datetime(grenzen))
     if len(grenzen)<2 or not grenzen.is_monotonic_increasing or grenzen.has_duplicates:
         raise ValueError('Gebruik minstens twee strikt oplopende grenzen.')
     if any((b-a) % pd.Timedelta(days=1) != pd.Timedelta(0) for a,b in zip(grenzen[:-1],grenzen[1:])):
         raise ValueError('Gebruik intervallen van een geheel aantal perioden van 24 uur.')
-    if not math.isfinite(max_uren) or max_uren<=0: raise ValueError('Ongeldige maximale gewichtsafstand.')
     rijen=[]
     for nr,(start,eind) in enumerate(zip(grenzen[:-1],grenzen[1:]),1):
         dagen=(eind-start).days
         for dier,hok in pop[['dier_id','hok']].itertuples(index=False,name=None):
-            d=dag[(dag.dier_id==dier)&(dag.hok==hok)]
+            d=gewichten[(gewichten.dier_id==dier)&(gewichten.hok==hok)]
             f=voer[(voer.dier_id==dier)&(voer.hok==hok)&(voer.tijd>=start)&(voer.tijd<eind)]
-            begin,rb,gb=schat_gewicht(d,start,max_uren); einde,re,ge=schat_gewicht(d,eind,max_uren)
+            begin,rb,gb=schat_gewicht(d,start); einde,re,ge=schat_gewicht(d,eind)
             redenen=[]
             if begin is None: redenen.append('begin_'+rb)
             if einde is None: redenen.append('eind_'+re)
             voer_dagen=((f.tijd-start) // pd.Timedelta(days=1)).nunique()
-            if voer_dagen!=dagen: redenen.append('voederdagen_ontbreken')
+            if f.empty: redenen.append('geen_voederrecords')
             groei=None if begin is None or einde is None else einde-begin
             if groei is not None and groei<=0: redenen.append('geen_positieve_groei')
-            # Een lege dag wordt niet stilzwijgend vervangen door nul voer.
+            # Som van alle behouden bezoeken. Een volledig lege periode blijft onbekend.
             voeder=float(f.waarde.sum()/1000) if len(f) else None
             bruikbaar=not redenen
             rijen.append({'interval':nr,'vanaf':start,'tot':eind,'dagen':dagen,'dier_id':dier,'hok':hok,
@@ -151,6 +151,7 @@ def bereken_intervallen(dag,voer,pop,grenzen,max_uren=48):
                           'voederdagen':voer_dagen,'voederbezoeken':len(f),
                           'grensbezoeken':int((f.einde>eind).sum()) if 'einde' in f else 0,
                           'afstand_begin_uren':gb,'afstand_eind_uren':ge,
+                          'aantal_begin_metingen':min(5,len(d)),'aantal_eind_metingen':min(5,len(d)),
                           'bruikbaar':bruikbaar,'reden':'bruikbaar' if bruikbaar else ';'.join(redenen),
                           'voederconversie':voeder/groei if bruikbaar else np.nan})
     return pd.DataFrame(rijen)

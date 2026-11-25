@@ -9,20 +9,28 @@ class Rekenen(unittest.TestCase):
     def setUp(self):
         self.pop=pd.DataFrame({'dier_id':['a','b'],'hok':['1','1']})
         self.dag=pd.DataFrame([
-            {'dier_id':a,'hok':'1','tijd':pd.Timestamp(t),'gewicht_kg':w}
+            {'dier_id':a,'hok':'1','tijd':pd.Timestamp(t),'waarde':w}
             for a,w0,w1 in [('a',10.,12.),('b',10.,14.)]
-            for t,w in [('2023-08-25 00:00',w0),('2023-08-27 00:00',w1)]])
+            for t,w in [('2023-08-25 00:00',w0),('2023-08-27 00:00',w1)]
+            for k in range(5)])
         self.voer=pd.DataFrame([
             {'dier_id':a,'hok':'1','tijd':pd.Timestamp(t),'waarde':v}
             for a,v in [('a',1500.),('b',2000.)]
             for t in ['2023-08-25 12:00','2023-08-26 12:00']])
         self.grenzen=['2023-08-25','2023-08-27']
 
-    def test_interpolatie_geen_extrapolatie(self):
-        d=self.dag[self.dag.dier_id=='a']
-        self.assertEqual(schat_gewicht(d,pd.Timestamp('2023-08-26'),48)[0],11)
-        self.assertIsNone(schat_gewicht(d,pd.Timestamp('2023-08-24'),48)[0])
-        self.assertIsNone(schat_gewicht(d,pd.Timestamp('2023-08-26'),24)[0])
+    def test_vijf_dichtste_en_minder_dan_vijf(self):
+        doel=pd.Timestamp('2023-08-25')
+        d=pd.DataFrame({'tijd':[doel+pd.Timedelta(hours=h) for h in (-100,-3,-2,1,2,4,99)],
+                        'waarde':[999,10,12,14,16,18,999]})
+        gewicht,reden,afstand=schat_gewicht(d,doel)
+        self.assertEqual(gewicht,14)
+        self.assertEqual(afstand,4)
+        self.assertIsNone(schat_gewicht(d.iloc[:4],doel)[0])
+        # Er is geen maximumafstand of eis dat het doel omsloten wordt.
+        gewicht,_,afstand=schat_gewicht(d,doel-pd.Timedelta(days=20))
+        self.assertIsNotNone(gewicht)
+        self.assertGreater(afstand,48)
 
     def test_groepen_verhouding_van_totalen(self):
         x=bereken_intervallen(self.dag,self.voer,self.pop,self.grenzen)
@@ -40,11 +48,14 @@ class Rekenen(unittest.TestCase):
         self.assertEqual(x.loc[x.dier_id=='a','voeder_kg'].iloc[0],3)
         voer=self.voer.iloc[1:].copy()
         x=bereken_intervallen(self.dag,voer,self.pop,self.grenzen)
-        self.assertIn('voederdagen_ontbreken',x.loc[x.dier_id=='a','reden'].iloc[0])
-        self.assertEqual(vat_hokken_samen(x).iloc[0]['dieren_bruikbaar'],1)
+        self.assertTrue(x.loc[x.dier_id=='a','bruikbaar'].iloc[0])
+        self.assertEqual(x.loc[x.dier_id=='a','voederdagen'].iloc[0],1)
+        self.assertEqual(vat_hokken_samen(x).iloc[0]['dieren_bruikbaar'],2)
+        leeg=bereken_intervallen(self.dag,voer[voer.dier_id!='a'],self.pop,self.grenzen)
+        self.assertIn('geen_voederrecords',leeg.loc[leeg.dier_id=='a','reden'].iloc[0])
 
     def test_nulgroei_en_nulbezoek(self):
-        d=self.dag.copy(); d.loc[d.dier_id=='a','gewicht_kg']=10
+        d=self.dag.copy(); d.loc[d.dier_id=='a','waarde']=10
         v=self.voer.copy(); v.loc[v.dier_id=='b','waarde']=0
         x=bereken_intervallen(d,v,self.pop,self.grenzen)
         self.assertIn('geen_positieve_groei',x.loc[x.dier_id=='a','reden'].iloc[0])

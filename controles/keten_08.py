@@ -97,11 +97,11 @@ def main():
                 verslag=json.loads((inv/'08_eindcontrole.json').read_text())
                 assert verslag['api_import']['nieuw']==139146 and verslag['api_herhaling']['nieuw']==0
                 assert verslag['basis_ongewijzigd'] and verslag['server_gelijk_aan_bronnen']
-                assert verslag['bruikbare_dieren_per_interval']=={'1': 72, '2': 98, '3': 98, '4': 98, '5': 88, '6': 98, '7': 62}
+                assert verslag['bruikbare_dieren_per_interval']=={'1': 98, '2': 99, '3': 99, '4': 99, '5': 94, '6': 99, '7': 99}
                 import pandas as pd
                 h=pd.read_csv(inv/'resultaten_08/hokperioden.csv',dtype={'hok':str})
-                assert h.loc[h.hok.isin(['1','2']) & h.periode.eq('aanvulling'),'voederconversie'].isna().all()
-                assert abs(h.loc[h.hok.eq('4') & h.periode.eq('aanvulling'),'voederconversie'].iloc[0]-1.383437998)<.000001
+                assert h.loc[h.periode.eq('aanvulling'),'dieren_bruikbaar'].sum()==99
+                assert abs(h.loc[h.hok.eq('4') & h.periode.eq('aanvulling'),'voederconversie'].iloc[0]-1.384690752)<.000001
                 assert baseline=={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (inv/'beginsituatie_07').iterdir()}
                 assert pw not in (out/f'08_uitgevoerd_{rol}.ipynb').read_text()
                 shutil.copytree(inv,out/rol,dirs_exist_ok=True)

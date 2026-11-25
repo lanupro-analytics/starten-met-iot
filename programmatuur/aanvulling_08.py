@@ -97,7 +97,7 @@ def lees_basis(map):
 def vergelijk_basis(data,info,tabellen):
     g,v,pop,_,_=selecteer(data)
     dag=daggewichten(g)
-    dier=bereken_intervallen(dag,v,pop,info['regels']['grenzen'])
+    dier=bereken_intervallen(g,v,pop,info['regels']['grenzen'])
     hok=vat_hokken_samen(dier)
     for naam,d in [('populatie.csv',pop),('daggewichten.csv',dag),('dierintervallen.csv',dier),('hokresultaten.csv',hok)]:
         verwacht=tabellen[naam].copy()
@@ -116,12 +116,12 @@ def uitgebreide_analyse(data,populatie):
     grenzen=['2023-08-25','2023-09-01','2023-09-08','2023-09-15','2023-09-20','2023-09-21','2023-09-28','2023-10-05']
     # De vier oude intervallen krijgen hun oorspronkelijke, tijdslokale selectie.
     gb,vb,pb,_,_=selecteer(data)
-    basis=bereken_intervallen(daggewichten(gb),vb,pb,grenzen[:5])
-    later=bereken_intervallen(dag,v,pop,grenzen[4:]);later['interval']+=4
+    basis=bereken_intervallen(gb,vb,pb,grenzen[:5])
+    later=bereken_intervallen(g,v,pop,grenzen[4:]);later['interval']+=4
     intervallen=pd.concat([basis,later],ignore_index=True)
     delen=[]
     for naam,start,eind in [('basis','2023-08-25','2023-09-20'),('aanvulling','2023-09-21','2023-10-05'),('geheel','2023-08-25','2023-10-05')]:
-        dd,vv,pp=(daggewichten(gb),vb,pb) if naam=='basis' else (dag,v,pop)
+        dd,vv,pp=(gb,vb,pb) if naam=='basis' else (g,v,pop)
         d=bereken_intervallen(dd,vv,pp,[start,eind]);d['periode']=naam;delen.append(d)
     perioden=pd.concat(delen,ignore_index=True)
     hokken=pd.concat([vat_hokken_samen(d).assign(periode=naam) for naam,d in perioden.groupby('periode',sort=False)],ignore_index=True)

@@ -24,12 +24,11 @@ De tijdgrafieken behouden die vier intervallen en voegen 20–21 september, 21�
 
 De periodetabel berekent basis (25 augustus–20 september), aanvulling (21 september–5 oktober) en geheel (25 augustus–5 oktober) elk rechtstreeks met dezelfde methode. Zij middelt geen conversies. De drie perioden kunnen verschillende bruikbare dieren bevatten. De optionele oefening vergelijkt een vaste groep over basis en aanvulling.
 
-Controlewaarden:
+Controlewaarden met vijf individuele gewichten per grens:
 
-- Bruikbare dieren in de zeven intervallen: 72, 98, 98, 98, 88, 98, 62.
-- Hokken 1 en 2 missen een omsloten eindgewicht voor de aanvulling.
-- Hok 4, aanvulling: 10 dieren, 0.751580 kg groei/dier/dag, 1.039764 kg voeder/dier/dag, conversie 1.383438.
-- Hok 9, aanvulling: 10 dieren, 0.686832 kg groei/dier/dag, 1.023514 kg voeder/dier/dag, conversie 1.490196.
+- Bruikbare dieren per tijdinterval: 98, 99, 99, 99, 94, 99, 99.
+- Hok 4, aanvulling: 10 dieren, 0.750900 kg groei/dier/dag, 1.039764 kg voeder/dier/dag en conversie 1.384691.
+- Hok 9, aanvulling: 10 dieren, 0.666271 kg groei/dier/dag, 1.023514 kg voeder/dier/dag en conversie 1.536182.
 
 
 Behandelingstoewijzing blijft een hypothese, maar elke student kiest voor elk van de tien hokken één strategie: HRE10, HRE18, LRE10 of LRE18. De bekende aantallen zijn respectievelijk twee, drie, twee en drie. Onzekerheid en alternatieven worden apart toegelicht. De bedrijfskeuze gebruikt groei, opname en conversie samen. Gezondheid, kosten en onzekerheid in de toewijzing verhinderen een bewezen economisch optimum.
@@ -63,8 +62,12 @@ De tijdassen gebruiken procestijd vanaf het gezamenlijke eerste meetpunt. De fas
 
 ## Dierenaantallen en spreidingsgrafieken
 
-Een label `8/10 dieren` betekent acht bruikbare dieren van tien oorspronkelijk gekoppelde dieren. Het is geen sterftetelling. De faseanalyse toont per hok de dekking, de redenen en de betrokken diernummers. Bij dag 1–10 zijn 72 dieren bruikbaar. Van de 29 uitgesloten dieren hebben 22 een te groot gewichtsgat rond het begin en negen onvoldoende voederdekking. Twee dieren vallen onder beide redenen. Eén dier met ontbrekende voederdekking mist ook een omsloten eindgewicht.
+Een label `8/10 dieren` betekent acht bruikbare dieren van tien oorspronkelijk gekoppelde dieren. Het is geen sterftetelling. Iedere grens gebruikt de vijf dichtstbijzijnde individuele gewichtsmetingen met FILTER = '0'. Tijdafstanden worden gerapporteerd maar sluiten niet uit. Alle behouden voederbezoeken binnen het interval worden gesommeerd. Een ontbrekende dag sluit niet uit, een volledig lege voederperiode wel. Ook minder dan vijf beschikbare gewichten en niet-positieve geschatte groei verhinderen een conversie.
+
+In elk van de drie voederfasen zijn nu 99 van 101 dieren bruikbaar. Dieren 89870718 en 89870760 hebben geen positieve geschatte groei en in de latere fasen geen voederrecords. Er wordt niet automatisch geconcludeerd dat zij gestorven zijn. De fasecontrole toont ook de maximale tijdafstanden van de vijf gekozen gewichten.
 
 `08_groei_tegen_conversie.png` bevat vier panelen: dag 1–10, 10–18, 18–27 en gezamenlijk dag 1–27. De laatste periode wordt rechtstreeks berekend met dezelfde dierselectie voor groei en voeder. Het is niet de verlengde periode tot oktober. De figuur gebruikt vaste hokkleuren, gedeelde assen en geen behandelingssleutel of automatische clustering. De aantallen staan in een afzonderlijke tabel.
 
 De nieuwe cellen zijn uitgevoerd. De totaalconversies zijn per hok gecontroleerd tegenover de som van voederopname gedeeld door de som van groei van de bruikbare dieren. De tabellen worden bewaard als `groei_tegen_conversie.csv` en `uitsluitingen_voederfasen.csv`. De gewijzigde aantallabels zijn ook in de opgeslagen conversiefiguren vernieuwd.
+
+De vijfmetingenmethode is opnieuw uitgevoerd: 07 volledig voor beide rollen en 08 vanaf de volledige API-database, inclusief de spreidingsfiguur, exports en snapshot. De methodeversie is `vijf_dichtste_filter0_07_v3`. Voor deze wijziging is de netwerkoverdracht niet herhaald.

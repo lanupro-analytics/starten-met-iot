@@ -58,8 +58,8 @@ def main():
             nbformat.write(nb,uitvoer/f'07_uitgevoerd_{rol}.ipynb')
             verslag=json.loads((inlever/'07_analysecontrole.json').read_text())
             assert verslag['populatie']==101
-            assert verslag['bruikbare_dieren_per_interval']=={'1':72,'2':98,'3':98,'4':98}
-            assert abs(verslag['eigen_voederconversie']-1.263937795)<.00001
+            assert verslag['bruikbare_dieren_per_interval']=={'1':98,'2':99,'3':99,'4':99}
+            assert abs(verslag['eigen_voederconversie']-1.236159776)<.00001
             assert hashlib.sha256((werk/'gegevens/werk/analyse_06.db').read_bytes()).hexdigest()==voor
             print('Volledig uitgevoerd en bron ongewijzigd:',rol,flush=True)
         shutil.copytree(inlever,uitvoer/'inlevering',dirs_exist_ok=True)
@@ -69,11 +69,11 @@ def main():
         import pandas as pd
         raw,_=lees_analyse(werk/'gegevens/werk/analyse_06.db')
         g,v,pop,_,_=selecteer(raw)
-        basis=vat_hokken_samen(bereken_intervallen(daggewichten(g),v,pop,STANDAARD_GRENZEN))
+        basis=vat_hokken_samen(bereken_intervallen(g,v,pop,STANDAARD_GRENZEN))
         extra=raw.iloc[[0]].copy();extra['record_id']='9'*27;extra['datum']='2023-09-22'
         extra['tijd']='2023-09-22T12:00:00';extra['einde']='2023-09-22T12:00:01';extra['waarde']=999
         g2,v2,pop2,_,_=selecteer(pd.concat([raw,extra],ignore_index=True))
-        later=vat_hokken_samen(bereken_intervallen(daggewichten(g2),v2,pop2,STANDAARD_GRENZEN))
+        later=vat_hokken_samen(bereken_intervallen(g2,v2,pop2,STANDAARD_GRENZEN))
         pd.testing.assert_frame_equal(basis,later)
         print('Vaste basis blijft gelijk bij extra latere records.',flush=True)
 

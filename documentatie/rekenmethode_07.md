@@ -1,82 +1,39 @@
-# Rekenmethode voor notebook 07
+# Rekenmethode: vijf dichtstbijzijnde gewichten
 
-## Doel en bron
+## Bronnen en selectie
 
-Deze methode combineert individuele gewichten met individuele voederopnames tot een verkennend overzicht per hok. Zij is een expliciete lesmethode, geen herimplementatie van de statistische analyse uit de bronpublicatie en geen gevalideerde regeling van een voederinstallatie. Zij gebruikt uitsluitend de via 06 opgeslagen basisdata.
+De analysedatabase uit 06 bevat gewichten in kg en voederopname per bezoek in gram. Beide bronnen worden gekoppeld op dier en hok. Alleen stabiel overeenkomende hokkoppelingen worden gebruikt. De populatie wordt vóór de numerieke kwaliteitsselectie vastgelegd, zodat we de oorspronkelijke aantallen blijven tonen.
 
-De aangeleverde publicatie is Zhu et al. (2026), *Impact of a protein feeding strategy on performance and lysine utilization efficiency in weaned piglets*, Animal Nutrition 27, 62–73. De abstract en methodes beschrijven 101 biggen, vier strategieën met 188 of 162 g ruw eiwit/kg gedurende 10 of 18 dagen, gevolgd door 179 g/kg. Sectie 2.6 beschrijft de oorspronkelijke kwaliteitsverwerking. De lesmethode herhaalt die filters en modellen niet. Er wordt geen behandeling aan een hok gekoppeld of uit het veld TREAT getoond.
+Alleen `FILTER = '0'` telt mee. `flagged` en `errored` worden uitgesloten. Ook ongeldige tijdstippen, waarden en herkenningsfouten vallen buiten de analyse. Voor gewichten blijven oorspronkelijke toestelmetingen, handmatige wegingen en startwegingen behouden. Geïmputeerde gewichten en uitstroomregistraties worden uitgesloten. De bronrecords blijven ongewijzigd.
 
-De algemene definitie van voederconversie is kg opgenomen voeder per kg gewichtstoename. Zie ook [Ontario: Providing feed and water to pigs](https://www.ontario.ca/page/providing-feed-and-water-pigs). In deze oefening gaat het om geregistreerde opname en geschatte groei, niet om een volledige bedrijfsboekhouding inclusief voerverlies, gezondheid of kostprijs.
+De oorspronkelijke vier weken bevatten 80.028 gewichtsrecords en 146.649 voederrecords. Alleen de FILTER-selectie behoudt respectievelijk 71.115 en 74.690 rijen. Na alle overige controles blijven 70.001 gewichtsrecords en 74.690 voederrecords over. De populatie telt 101 dieren in tien hokken.
 
-## Broncontrole en afzonderlijke selectie
+## Eerst de periodegrenzen, dan de grensgewichten
 
-De analyse leest `analyse_06.db` met SQLite `mode=ro`. De application_id moet 600106 zijn. SHA-256 wordt opnieuw over de opgeslagen JSON berekend en vergeleken met de recordcontrolewaarden. Daarna wordt het inhoudsmanifest vergeleken met de laatste API-import en de notebookcontrole uit 06.
+Voor iedere grens wordt per dier de absolute tijdafstand van iedere behouden individuele gewichtsmeting tot het gewenste tijdstip berekend. De vijf dichtstbijzijnde meetrecords worden geselecteerd en hun rekenkundig gemiddelde vormt het geschatte grensgewicht. Bij gelijke afstand komt de eerdere meting eerst. Het gaat om vijf individuele meetrecords, niet om vijf dagmedianen.
 
-De geladen velden omvatten dier, hok, datum, meetwaarde, eenheid, bezoekstart/-einde, ERROR, FILTER en DATAORIGIN. Behandelingscodes worden niet geladen. De ruwe bronrecords worden niet gewijzigd. Dubbele `(bron,record_id)` en verkeerde bron/meettype/eenheid worden als fout gemeld.
+Er is geen maximale afstand en geen eis dat het doelpunt tussen de metingen ligt. `afstand_begin_uren` en `afstand_eind_uren` bevatten de grootste absolute afstand binnen de vijf geselecteerde metingen. `aantal_begin_metingen` en `aantal_eind_metingen` tonen het aantal beschikbare geselecteerde metingen. Bij minder dan vijf blijft het grensgewicht onbekend. De afstand is kwaliteitsinformatie, geen uitsluitingscriterium.
 
-Selectiestappen:
+Dezelfde oude metingen kunnen bij een dier zonder latere waarnemingen voor meerdere grenzen worden geselecteerd. Zo'n uitkomst bewijst geen actueel lichaamsgewicht of sterfte. Grote tijdafstanden en ontbrekende registraties moeten bij de interpretatie zichtbaar blijven.
 
-1. Bronkalenderdatum vanaf 24 augustus tot 21 september 2023 exclusief.
-2. ERROR gelijk aan `no error`, FILTER niet `errored`, dier en hok aanwezig.
-3. Dier komt in beide bronnen voor en heeft in beide dezelfde unieke hokcode.
-4. Geldige begin- en eindtijd, eindtijd niet vóór begintijd, datum gelijk aan de kalenderdatum van bezoekstart, eindige meetwaarde. Gewicht strikt positief, voer nul of positief.
-5. Voor gewicht alleen DATAORIGIN `0`, `allocation` of `manualweighing`. `imputed` en `exit` worden uitgesloten.
+## Groei, opname en conversie
 
-Uitsluitend `FILTER = '0'` (tekst) is toegestaan. `flagged` en `errored` zijn eerder gemarkeerde uitschieters of fouten. Hun meetwaarden dragen niet bij aan analyses of figuren. De populatie wordt vóór deze numerieke kwaliteitsselectie vastgelegd, zodat uitgesloten metingen de noemer niet onzichtbaar verkleinen. Ontbrekende voederdagen worden niet als nulopname ingevuld.
+Groei per dier is eindgewicht min begingewicht. Voederopname is de som van alle behouden bezoekwaarden waarvan de starttijd op of na de begingrens en vóór de eindgrens ligt, gedeeld door 1.000. Een bezoek over een grens wordt volledig aan zijn startinterval toegewezen en apart geteld.
 
-## Tijd en gewichten
+Een behouden bezoek op iedere dag is niet verplicht. Het aantal blokken van 24 uur met minstens één behouden bezoek wordt gerapporteerd in `voederdagen`. Ontbrekende dagen sluiten een dier niet uit. De som is de geregistreerde opname en kan de werkelijke opname onderschatten. Een volledig lege voederperiode blijft onbekend. Een geregistreerd nulbezoek is wel een waarneming.
 
-Voor ieder dier en iedere kalenderdag wordt de mediaan van de geselecteerde gewichten berekend. De mediane waarnemingstijd geeft dit daggewicht een representatieve tijdpositie. Dit paar is een samenvatting, niet noodzakelijk één werkelijk gemeten record.
+Conversie vereist twee berekenbare grensgewichten, minstens één voederrecord en positieve geschatte groei. De dierentabel behoudt ook uitgesloten dieren met hun reden. De hokberekening gebruikt voor groei en opname dezelfde bruikbare dieren. Conversie is som(voeder_kg) / som(groei_kg), niet het gemiddelde van dierconversies. Dagelijkse groei en opname zijn de totalen gedeeld door het aantal bruikbare dieren en de intervalduur. Interne gramkolommen zijn expliciet benoemd. De eindgrafieken van 08 tonen kg per dier per dag.
 
-Voor een grens t worden de dichtstbijzijnde dagmedianen vóór en na t gebruikt. Het grensgewicht is:
+## Perioden en procestijd
 
-`gewicht(t) = gewicht_links + fractie × (gewicht_rechts − gewicht_links)`
+De oorspronkelijke kalenderintervallen van 07 blijven 25 augustus, 1 september, 8 september, 15 september en 20 september, telkens 00:00. De oorspronkelijke bronperiode blijft begrensd tot 21 september exclusief, ook bij herberekening na latere toevoegingen. Met de vijfmetingenmethode zijn respectievelijk 98, 99, 99 en 99 dieren bruikbaar.
 
-`fractie = (t − tijd_links) / (tijd_rechts − tijd_links)`
+Procestijd is de verstreken tijd sinds het gezamenlijke eerste meetpunt op 24 augustus 2023 om 12:00, uitgedrukt in dagen inclusief uren en minuten. De fasevergelijking van 08 gebruikt dag 1, 10, 18 en 27. Alle tijdfiguren markeren dag 10 en 18. Een intervalpunt staat in het midden van de periode, met een horizontaal lijntje voor de duur. De spreidingsfiguren hebben geen tijdas.
 
-Er is geen extrapolatie. De ondersteunende dagmedianen mogen maximaal 48 uur uit elkaar liggen. Een exact aanwezige dagmediaan mag direct worden gebruikt. De grens van 48 uur is een onderwijskeuze, geen bewezen optimale grens. De dagelijkse samenvatting kan abrupte veranderingen afvlakken.
+Alleen de beschrijvende dagelijkse gewichtsgrafiek gebruikt één mediaan per dier per kalenderdag en vervolgens een gemiddelde per hok. Dit voorkomt dat dieren met veel bezoeken zwaarder doorwegen in die grafiek. Die dagmedianen worden niet gebruikt voor grensgewichten of groei.
 
-De standaardgrenzen zijn 25 augustus, 1 september, 8 september, 15 september en 20 september, steeds 00:00. Zo is de gedeeltelijke eerste kalenderdag geen volledige voederdag in de hoofdvergelijking en kunnen metingen van 20 september het laatste grensgewicht ondersteunen. Er wordt geen gewicht van na de basisperiode gebruikt. De intervallen duren 7, 7, 7 en 5 dagen.
+## Beginsituatie en herhaling
 
-## Voeder, dekking en koppeling
+De methodeversie is `vijf_dichtste_filter0_07_v3`. Archiveer een eerdere beginsituatie en voer 07 opnieuw uit voordat je met 08 verdergaat. De bewaarfunctie weigert een afwijkende bestaande beginsituatie te overschrijven.
 
-Voer wordt op bezoekstart toegewezen, vanaf inclusief en tot exclusief. VFI wordt opgeteld en door 1000 gedeeld. Er wordt geen cumulatieve teller afgetrokken. Een bezoek dat een grens passeert wordt volledig aan zijn startinterval toegekend. Zulke grensbezoeken worden geteld. Binnen de geïnspecteerde basisselectie zijn er geen bezoeken over middernacht.
-
-Ieder dier moet in iedere kalenderdag van het interval minstens één geldig voederrecord hebben. Een geregistreerd nulbezoek geldt als waarneming. Een ontbrekende dag wordt niet als nul ingevuld. Dit is een minimale dekkingscontrole en bewijst geen volledige registratie binnen elke dag.
-
-De populatie wordt vóór de numerieke kwaliteitsselectie vastgelegd op basis van stabiele, foutvrij herkende koppelingen. Zij bevat 101 dieren in 10 hokken, met 11 dieren in hok 1 en 10 in de andere hokken. Per interval vallen dieren uit wanneer begin-/eindgewicht ontbreekt, een voederdag ontbreekt of de geschatte groei niet positief is. Alle redenen blijven in `dierintervallen.csv` zichtbaar.
-
-De hokberekening gebruikt voor beide tellers exact dezelfde bruikbare dieren. Voederconversie is som(voeder_kg) / som(groei_kg), niet het gemiddelde van individuele verhoudingen. Groei en opname in g per dier per dag zijn de respectieve totalen × 1000 / (aantal bruikbare dieren × dagen). Bij nul bruikbare dieren blijven de uitkomsten ontbrekend.
-
-Het uitsluiten van niet-positieve groei kan de groepsverhouding gunstiger doen lijken. Daarom staan aantallen en dekkingspercentages bij de uitkomsten. De groepsresultaten zijn geen schatting voor de ontbrekende dieren. Ook kan de groep tussen intervallen veranderen.
-
-## Controlewaarden uit de basisdata
-
-- Oorspronkelijk: 80.028 gewichtsrecords en 146.649 voederrecords.
-- Expliciete herkenningsfouten: 7 gewicht, 80 voer.
-- FILTER = '0': 71.115 gewichtsrecords en 74.690 voederrecords. Na de overige controles blijven 70.001 gewichtsrecords en 74.690 voederrecords over.
-- Bruikbare dieren per interval: 72, 98, 98, 98.
-- Dier 89728010, hok 3, eerste interval: groei 1.268328 kg, opname 1.459 kg, conversie 1.150333.
-- Hok 1, eerste interval: conversie 0.968261.
-- Hok 9, laatste interval: conversie 1.263938.
-
-
-Afgeronde tekstwaarden dienen voor uitleg. De opgeslagen tabellen bevatten meer precisie en vormen het vergelijkingspunt voor 08. De kwartielverkenning en het spreidingsdiagram zijn facultatief en wijzigen deze basis niet.
-
-## Beginsituatie en latere vergelijking
-
-`gegevens/inlevering/beginsituatie_07/` bevat populatie.csv, daggewichten.csv, dierintervallen.csv, hokresultaten.csv en beginsituatie.json. De JSON bewaart methodeversie, regels, bronmanifest en SHA-256 van de CSV-inhoud in UTF-8 met LF-regeleinden. De map wordt eerst volledig in een tijdelijke buurmap geschreven en daarna geplaatst. Herhalen met dezelfde inhoud behoudt de map. Verschillende inhoud veroorzaakt een melding zonder overschrijven.
-
-De drie hoofdfiguren en `07_analysecontrole.json` worden daarnaast automatisch gemaakt. Bronwaarden en database blijven ongewijzigd. Een toekomstige analyse van aanvullende data krijgt een aparte resultaatset. Voor vergelijking over dezelfde vaste basisperiode moeten de populatie, bronselectie, grenzen en kwaliteitsregels gelijk blijven. De methode gebruikt geen later meetpunt buiten de vastgelegde basisselectie.
-
-Bij het later inlezen van de CSV-bestanden blijven `dier_id` en `hok` expliciet tekst (`dtype=str` voor deze kolommen). Tijden worden met microseconden geëxporteerd, zodat ook een mediane waarnemingstijd tussen twee seconden behouden blijft. Numerieke tabellen gebruiken twaalf significante cijfers. Vergelijk herberekende floats met een verklaarde tolerantie, niet als exacte binaire waarden.
-
-De filterversie heet `dagmediaan_lineair_filter0_07_v2`. Archiveer een oudere beginsituatie en voer 07 opnieuw uit voordat je met 08 verdergaat. De oude beginsituatie wordt niet overschreven.
-
-## Procestijd op de figuren
-
-Procestijd is `(tijdstip - eerste meetpunt) / 24 uur`. Het gezamenlijke eerste meetpunt van beide oorspronkelijke bronnen ligt op 24 augustus 2023 om 12:00. Uren, minuten en seconden blijven als een fractie van een dag behouden. De notebooks bepalen het nulpunt uit de brongegevens vóór filtering. Latere aanvullingen verplaatsen dit nulpunt niet.
-
-Alle tijdfiguren hebben een as in dagen en verticale stippellijnen op dag 10 en 18. Een dagelijkse hokwaarde staat op de mediane tijd van de gebruikte dierdaggewichten. Ontbrekende dagen blijven gaten in de lijn. Intervalwaarden staan op het midden van het interval, met een horizontaal lijntje dat de duur aangeeft. De oorspronkelijke kalendergrenzen van de basisanalyse blijven behouden. De spreidingsgrafiek van groei tegenover conversie heeft geen tijdas.
-
-De fasevergelijking in 08 gebruikt grenzen op procestijd 1, 10, 18 en 27, telkens om 12:00. De voederdekking wordt dan gecontroleerd in blokken van 24 uur vanaf de intervalstart. Voor middernachtgrenzen is dit gelijk aan de bestaande kalenderdagcontrole. Dag 10 en 18 zijn de afgesproken wisselmomenten in procestijd, geen uit meetgegevens bewezen feitelijke wisseluren.
+De map `gegevens/inlevering/beginsituatie_07/` bewaart populatie, dagelijkse samenvattingen, dierintervallen en hokresultaten plus metadata, rekenregels en inhoudsvingerafdrukken. CSV-getallen gebruiken twaalf significante cijfers. De herberekening in 08 vergelijkt met een tolerantie van 1e-10. Dier- en hokcodes worden als tekst gelezen. Extra meetdagen wijzigen de vaste bronselectie van de oude intervallen niet.
