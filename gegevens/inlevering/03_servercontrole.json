@@ -1,0 +1,11 @@
+{
+  "deelnemerscode": "kenzo_meulemeester",
+  "branch": "student/kenzo_meulemeester",
+  "getest_op_utc": "2026-11-26T22:35:43.565121+00:00",
+  "verbindingen": {
+    "mqtt_tls": "geslaagd",
+    "mqtt_heen_en_terug": "geslaagd",
+    "https": "geslaagd",
+    "api_aanmelding": "geslaagd"
+  }
+}
