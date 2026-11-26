@@ -1,0 +1,11 @@
+{
+  "deelnemerscode": "rene_vandekerckhove",
+  "branch": "student/rene_vandekerckhove",
+  "rol": "voederopname",
+  "werkdatabase": "gegevens/werk/schauer.db",
+  "aantal_metingen": 146649,
+  "aantal_hokken": 10,
+  "basis_vanaf": "2023-08-24",
+  "basis_tot_en_met": "2023-09-20",
+  "metingen_sha256": "157fe3aebd1b8b17461e16e6737e1641e6bff22c1f94e995630945119cbdaa3c"
+}
