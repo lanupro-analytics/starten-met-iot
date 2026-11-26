@@ -22,14 +22,14 @@ Vervolg met **[05 · Metingen ontvangen en opslaan](notebooks/05_metingen_ontvan
 
 Ga vervolgens verder met **[06 · Gegevens opvragen via een API](notebooks/06_gegevens_opvragen_via_een_api.ipynb)** en **[07 · Groei, voederopname en voederconversie onderzoeken](notebooks/07_voederconversie_berekenen_en_visualiseren.ipynb)**.
 
-Sluit de reeks af met **[08 · Nieuwe gegevens toevoegen en interpreteren](notebooks/08_nieuwe_gegevens_toevoegen_en_interpreteren.ipynb)** voor de Excel-aanvulling, de fasevergelijking en je bedrijfsadvies. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
+Sluit de reeks af met **[08 · Nieuwe gegevens toevoegen en interpreteren](notebooks/08_nieuwe_gegevens_toevoegen_en_interpreteren.ipynb)** voor de Excel-aanvulling, de fasevergelijking en je bedrijfsadvies. Gebruik vanaf notebook 03 bij verbindings- of uitwisselingsproblemen tussen twee Droplets het hulphandboek **[09 · Verbinding en uitwisseling controleren](notebooks/09_verbinding_en_uitwisseling_controleren.ipynb)**. De oude oefeningen staan in het [archief](archief/LEESMIJ.md).
 
 ## Bestanden
 
 | Map | Inhoud |
 |---|---|
-| `notebooks/` | Ongewijzigde introductie 00 en studentenversies 01–08 |
-| `docent/notebooks/` | Volledig uitgewerkte docentversies 01–08 |
+| `notebooks/` | Ongewijzigde introductie 00 en studentenversies 01–09 |
+| `docent/notebooks/` | Volledig uitgewerkte docentversies 01–09 |
 | `hulpmiddelen/` | Scripts voor startdatabanken en studentenversies |
 | `gegevens/origineel/` | Vrijgegeven lesdatabanken met de eerste vier weken |
 | `gegevens/aanvulling/` | Excel-bestanden met de vijftien latere meetdagen voor 08 |
