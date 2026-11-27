@@ -1,0 +1,26 @@
+{
+  "deelnemerscode": "kenzo_meulemeester",
+  "branch": "student/kenzo_meulemeester",
+  "rol": "gewichten",
+  "getest_op_utc": "2026-11-27T20:07:31.269219+00:00",
+  "topic": "practicum/kenzo_meulemeester/metingen/gewichten",
+  "bron": "asserva",
+  "record_id": "897280101692878400000000000",
+  "ontvangen_oefenwaarde": 9.0,
+  "heen_en_terug": "geslaagd",
+  "nieuwe_records": {
+    "geselecteerd": 20,
+    "bevestigd": 20,
+    "overgeslagen": 0
+  },
+  "herhaling": {
+    "geselecteerd": 20,
+    "bevestigd": 0,
+    "overgeslagen": 20
+  },
+  "herpublicatie": {
+    "geselecteerd": 20,
+    "bevestigd": 20,
+    "overgeslagen": 0
+  }
+}
